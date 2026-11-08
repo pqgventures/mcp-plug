@@ -4,38 +4,38 @@ Generated from `registry/clients/` by `npm run build`. Do not edit by hand. [Por
 
 | App | One click | Remote (HTTP) | Local (stdio) | OAuth | Plans | Checked |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Claude](registry/clients/claude-ai.json) | ✓ | ✓ | — | DCR, CIMD, PKCE | All plans. Free allows one custom connector. On Team and Enterprise only owners add connectors; members then connect. | 2026-11-08 |
-| [ChatGPT](registry/clients/chatgpt.json) | — | ✓ | — | DCR, CIMD, PKCE | Documented for Business, Enterprise and Edu on the web (admins and owners, or members with the plugin permission). Plus and Pro availability varies; check in your account. | 2026-11-08 |
-| [Claude Code](registry/clients/claude-code.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | Any Claude Code user (Pro, Max, Team, Enterprise or API key). Admins can allow or block servers with managed settings. | 2026-11-08 |
-| [Codex](registry/clients/codex.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | Any Codex user (ChatGPT plan with Codex, or API key). The CLI, the desktop app and the IDE extension share the same config. | 2026-11-08 |
-| [Cursor](registry/clients/cursor.json) | ✓ | ✓ | ✓ | DCR, PKCE | Available to individual users; Enterprise admins can allowlist servers by command and URL. | 2026-11-08 |
-| [VS Code](registry/clients/vscode.json) | ✓ | ✓ | ✓ | DCR, PKCE | Any GitHub Copilot plan, Free included. Business and Enterprise admins control MCP by policy. | 2026-11-08 |
-| [Claude Desktop](registry/clients/claude-desktop.json) | ✓ | ✓ | ✓ | DCR, CIMD, PKCE | Any plan, Free included. On Team and Enterprise, owners can turn off public extensions or keep an allowlist. | 2026-11-08 |
-| [Gemini CLI](registry/clients/gemini-cli.json) | — | ✓ | ✓ | DCR, PKCE | Anyone running Gemini CLI (Google account, API key, Vertex AI or Code Assist). | 2026-11-08 |
-| [Windsurf](registry/clients/windsurf.json) | — | ✓ | ✓ | DCR | Not restricted by plan in the docs; Enterprise admins keep an MCP allowlist and registries. | 2026-11-08 |
-| [Gemini](registry/clients/gemini-app.json) | — | ✓ | — | DCR, PKCE | Personal Google accounts, 18+, in the US, in English, with Keep Activity on. Workspace has a separate path in Gemini Enterprise. | 2026-11-08 |
-| [Le Chat](registry/clients/le-chat.json) | — | ✓ | — | DCR | Admins add connectors. On Free, Pro and Student the account owner is the admin; on Team and Enterprise an organization admin adds them. | 2026-11-08 |
-| [Perplexity](registry/clients/perplexity.json) | — | ✓ | ✓ | ? | Not stated for custom servers. Local servers need the Mac App Store app. | 2026-11-08 |
-| [Copilot Studio](registry/clients/copilot-studio.json) | — | ✓ | — | DCR | Copilot Studio license (or Microsoft 365 Copilot / pay-as-you-go) and an agent with generative orchestration on. Power Platform data policies apply. | 2026-11-08 |
-| [Notion AI](registry/clients/notion-ai.json) | — | ✓ | — | DCR | Business and Enterprise. An admin must turn on **Enable custom MCP servers**. | 2026-11-08 |
-| [Poke](registry/clients/poke.json) | ✓ | ✓ | — | DCR | Any Poke user, from the web app. | 2026-11-08 |
-| [Manus](registry/clients/manus.json) | — | ✓ | — | ✓ | Ready-made connectors on every plan; the plan for custom servers isn't stated. | 2026-11-08 |
-| [Goose](registry/clients/goose.json) | ✓ | ✓ | ✓ | DCR, CIMD, PKCE | Free and open source (Apache-2.0). | 2026-11-08 |
-| [LM Studio](registry/clients/lm-studio.json) | ✓ | ✓ | ✓ | ? | Free app; MCP since version 0.3.17. | 2026-11-08 |
-| [Zed](registry/clients/zed.json) | — | ✓ | ✓ | ✓ | Local setting, not tied to a plan. | 2026-11-08 |
-| [Cline](registry/clients/cline.json) | — | ✓ | ✓ | ✓ | Free and open source. Enterprise admins can allowlist servers or block personal ones. | 2026-11-08 |
-| [Roo Code](registry/clients/roo-code.json) | — | ✓ | ✓ | ? | Open source; no plan restriction. | 2026-11-08 |
-| [Kilo Code](registry/clients/kilo-code.json) | — | ✓ | ✓ | ✓ | No plan restriction documented. | 2026-11-08 |
-| [OpenCode](registry/clients/opencode.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | Open source, no plan restriction. | 2026-11-08 |
-| [JetBrains AI](registry/clients/jetbrains.json) | — | ✓ | ✓ | ✓ | JetBrains AI access in a JetBrains IDE (AI Assistant or Junie). | 2026-11-08 |
-| [Visual Studio](registry/clients/visual-studio.json) | ✓ | ✓ | ✓ | ✓ | Any GitHub Copilot plan, Free included. Visual Studio 2026, or 2022 17.14+. | 2026-11-08 |
-| [Kiro](registry/clients/kiro.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | IDE, CLI and web; no plan restriction found. Enterprise has an MCP registry for governance. | 2026-11-08 |
-| [Warp](registry/clients/warp.json) | — | ✓ | ✓ | ✓ | No plan gate for local agents; sharing servers with a team needs a Warp team. | 2026-11-08 |
-| [Raycast](registry/clients/raycast.json) | — | ✓ | ✓ | DCR, PKCE | Raycast Pro. On Enterprise, admins can set servers for the organization. | 2026-11-08 |
-| [Msty Studio](registry/clients/msty.json) | — | ✓ | ✓ | ✓ | Not stated. Studio Web needs Studio Desktop to run tools. | 2026-11-08 |
-| [BoltAI](registry/clients/boltai.json) | — | ? | ✓ | ? | MCP since Mac app 1.34; plan not stated. | 2026-11-08 |
-| [Copilot CLI](registry/clients/copilot-cli.json) | — | ✓ | ✓ | ? | Any Copilot plan. Organization policies (MCP registry and allowlist) can limit which servers run. | 2026-11-08 |
-| [Augment Code](registry/clients/augment.json) | — | ✓ | ✓ | ? | Not stated. | 2026-11-08 |
-| [Continue](registry/clients/continue.json) | — | ✓ | ✓ | ? | Open source; local config needs no plan. | 2026-11-08 |
-| [Amazon Q Developer](registry/clients/amazon-q.json) | — | ✓ | ✓ | ✓ | Not stated. AWS now points people to Kiro. | 2026-11-08 |
-| [Instinct](registry/clients/instinct.json) | — | — | — | ? | Invite-only consumer agent on iMessage, WhatsApp and SMS. | 2026-11-08 |
+| [Claude](registry/clients/claude-ai.json) | ✓ | ✓ | — | DCR, CIMD, PKCE | /A/l/l/ /p/l/a/n/s/./ /F/r/e/e/ /a/l/l/o/w/s/ /o/n/e/ /c/u/s/t/o/m/ /c/o/n/n/e/c/t/o/r/./ /O/n/ /T/e/a/m/ /a/n/d/ /E/n/t/e/r/p/r/i/s/e/ /o/n/l/y/ /o/w/n/e/r/s/ /a/d/d/ /c/o/n/n/e/c/t/o/r/s/;/ /m/e/m/b/e/r/s/ /t/h/e/n/ /c/o/n/n/e/c/t/./ | 2026-11-08 |
+| [ChatGPT](registry/clients/chatgpt.json) | — | ✓ | — | DCR, CIMD, PKCE | /D/o/c/u/m/e/n/t/e/d/ /f/o/r/ /B/u/s/i/n/e/s/s/,/ /E/n/t/e/r/p/r/i/s/e/ /a/n/d/ /E/d/u/ /o/n/ /t/h/e/ /w/e/b/ /(/a/d/m/i/n/s/ /a/n/d/ /o/w/n/e/r/s/,/ /o/r/ /m/e/m/b/e/r/s/ /w/i/t/h/ /t/h/e/ /p/l/u/g/i/n/ /p/e/r/m/i/s/s/i/o/n/)/./ /P/l/u/s/ /a/n/d/ /P/r/o/ /a/v/a/i/l/a/b/i/l/i/t/y/ /v/a/r/i/e/s/;/ /c/h/e/c/k/ /i/n/ /y/o/u/r/ /a/c/c/o/u/n/t/./ | 2026-11-08 |
+| [Claude Code](registry/clients/claude-code.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | /A/n/y/ /C/l/a/u/d/e/ /C/o/d/e/ /u/s/e/r/ /(/P/r/o/,/ /M/a/x/,/ /T/e/a/m/,/ /E/n/t/e/r/p/r/i/s/e/ /o/r/ /A/P/I/ /k/e/y/)/./ /A/d/m/i/n/s/ /c/a/n/ /a/l/l/o/w/ /o/r/ /b/l/o/c/k/ /s/e/r/v/e/r/s/ /w/i/t/h/ /m/a/n/a/g/e/d/ /s/e/t/t/i/n/g/s/./ | 2026-11-08 |
+| [Codex](registry/clients/codex.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | /A/n/y/ /C/o/d/e/x/ /u/s/e/r/ /(/C/h/a/t/G/P/T/ /p/l/a/n/ /w/i/t/h/ /C/o/d/e/x/,/ /o/r/ /A/P/I/ /k/e/y/)/./ /T/h/e/ /C/L/I/,/ /t/h/e/ /d/e/s/k/t/o/p/ /a/p/p/ /a/n/d/ /t/h/e/ /I/D/E/ /e/x/t/e/n/s/i/o/n/ /s/h/a/r/e/ /t/h/e/ /s/a/m/e/ /c/o/n/f/i/g/./ | 2026-11-08 |
+| [Cursor](registry/clients/cursor.json) | ✓ | ✓ | ✓ | DCR, PKCE | /A/v/a/i/l/a/b/l/e/ /t/o/ /i/n/d/i/v/i/d/u/a/l/ /u/s/e/r/s/;/ /E/n/t/e/r/p/r/i/s/e/ /a/d/m/i/n/s/ /c/a/n/ /a/l/l/o/w/l/i/s/t/ /s/e/r/v/e/r/s/ /b/y/ /c/o/m/m/a/n/d/ /a/n/d/ /U/R/L/./ | 2026-11-08 |
+| [VS Code](registry/clients/vscode.json) | ✓ | ✓ | ✓ | DCR, PKCE | /A/n/y/ /G/i/t/H/u/b/ /C/o/p/i/l/o/t/ /p/l/a/n/,/ /F/r/e/e/ /i/n/c/l/u/d/e/d/./ /B/u/s/i/n/e/s/s/ /a/n/d/ /E/n/t/e/r/p/r/i/s/e/ /a/d/m/i/n/s/ /c/o/n/t/r/o/l/ /M/C/P/ /b/y/ /p/o/l/i/c/y/./ | 2026-11-08 |
+| [Claude Desktop](registry/clients/claude-desktop.json) | ✓ | ✓ | ✓ | DCR, CIMD, PKCE | /A/n/y/ /p/l/a/n/,/ /F/r/e/e/ /i/n/c/l/u/d/e/d/./ /O/n/ /T/e/a/m/ /a/n/d/ /E/n/t/e/r/p/r/i/s/e/,/ /o/w/n/e/r/s/ /c/a/n/ /t/u/r/n/ /o/f/f/ /p/u/b/l/i/c/ /e/x/t/e/n/s/i/o/n/s/ /o/r/ /k/e/e/p/ /a/n/ /a/l/l/o/w/l/i/s/t/./ | 2026-11-08 |
+| [Gemini CLI](registry/clients/gemini-cli.json) | — | ✓ | ✓ | DCR, PKCE | /A/n/y/o/n/e/ /r/u/n/n/i/n/g/ /G/e/m/i/n/i/ /C/L/I/ /(/G/o/o/g/l/e/ /a/c/c/o/u/n/t/,/ /A/P/I/ /k/e/y/,/ /V/e/r/t/e/x/ /A/I/ /o/r/ /C/o/d/e/ /A/s/s/i/s/t/)/./ | 2026-11-08 |
+| [Windsurf](registry/clients/windsurf.json) | — | ✓ | ✓ | DCR | /N/o/t/ /r/e/s/t/r/i/c/t/e/d/ /b/y/ /p/l/a/n/ /i/n/ /t/h/e/ /d/o/c/s/;/ /E/n/t/e/r/p/r/i/s/e/ /a/d/m/i/n/s/ /k/e/e/p/ /a/n/ /M/C/P/ /a/l/l/o/w/l/i/s/t/ /a/n/d/ /r/e/g/i/s/t/r/i/e/s/./ | 2026-11-08 |
+| [Gemini](registry/clients/gemini-app.json) | — | ✓ | — | DCR, PKCE | /P/e/r/s/o/n/a/l/ /G/o/o/g/l/e/ /a/c/c/o/u/n/t/s/,/ /1/8/+/,/ /i/n/ /t/h/e/ /U/S/,/ /i/n/ /E/n/g/l/i/s/h/,/ /w/i/t/h/ /K/e/e/p/ /A/c/t/i/v/i/t/y/ /o/n/./ /W/o/r/k/s/p/a/c/e/ /h/a/s/ /a/ /s/e/p/a/r/a/t/e/ /p/a/t/h/ /i/n/ /G/e/m/i/n/i/ /E/n/t/e/r/p/r/i/s/e/./ | 2026-11-08 |
+| [Le Chat](registry/clients/le-chat.json) | — | ✓ | — | DCR | /A/d/m/i/n/s/ /a/d/d/ /c/o/n/n/e/c/t/o/r/s/./ /O/n/ /F/r/e/e/,/ /P/r/o/ /a/n/d/ /S/t/u/d/e/n/t/ /t/h/e/ /a/c/c/o/u/n/t/ /o/w/n/e/r/ /i/s/ /t/h/e/ /a/d/m/i/n/;/ /o/n/ /T/e/a/m/ /a/n/d/ /E/n/t/e/r/p/r/i/s/e/ /a/n/ /o/r/g/a/n/i/z/a/t/i/o/n/ /a/d/m/i/n/ /a/d/d/s/ /t/h/e/m/./ | 2026-11-08 |
+| [Perplexity](registry/clients/perplexity.json) | — | ✓ | ✓ | ? | /N/o/t/ /s/t/a/t/e/d/ /f/o/r/ /c/u/s/t/o/m/ /s/e/r/v/e/r/s/./ /L/o/c/a/l/ /s/e/r/v/e/r/s/ /n/e/e/d/ /t/h/e/ /M/a/c/ /A/p/p/ /S/t/o/r/e/ /a/p/p/./ | 2026-11-08 |
+| [Copilot Studio](registry/clients/copilot-studio.json) | — | ✓ | — | DCR | /C/o/p/i/l/o/t/ /S/t/u/d/i/o/ /l/i/c/e/n/s/e/ /(/o/r/ /M/i/c/r/o/s/o/f/t/ /3/6/5/ /C/o/p/i/l/o/t/ /// /p/a/y/-/a/s/-/y/o/u/-/g/o/)/ /a/n/d/ /a/n/ /a/g/e/n/t/ /w/i/t/h/ /g/e/n/e/r/a/t/i/v/e/ /o/r/c/h/e/s/t/r/a/t/i/o/n/ /o/n/./ /P/o/w/e/r/ /P/l/a/t/f/o/r/m/ /d/a/t/a/ /p/o/l/i/c/i/e/s/ /a/p/p/l/y/./ | 2026-11-08 |
+| [Notion AI](registry/clients/notion-ai.json) | — | ✓ | — | DCR | /B/u/s/i/n/e/s/s/ /a/n/d/ /E/n/t/e/r/p/r/i/s/e/./ /A/n/ /a/d/m/i/n/ /m/u/s/t/ /t/u/r/n/ /o/n/ /*/*/E/n/a/b/l/e/ /c/u/s/t/o/m/ /M/C/P/ /s/e/r/v/e/r/s/*/*/./ | 2026-11-08 |
+| [Poke](registry/clients/poke.json) | ✓ | ✓ | — | DCR | /A/n/y/ /P/o/k/e/ /u/s/e/r/,/ /f/r/o/m/ /t/h/e/ /w/e/b/ /a/p/p/./ | 2026-11-08 |
+| [Manus](registry/clients/manus.json) | — | ✓ | — | ✓ | /R/e/a/d/y/-/m/a/d/e/ /c/o/n/n/e/c/t/o/r/s/ /o/n/ /e/v/e/r/y/ /p/l/a/n/;/ /t/h/e/ /p/l/a/n/ /f/o/r/ /c/u/s/t/o/m/ /s/e/r/v/e/r/s/ /i/s/n/'/t/ /s/t/a/t/e/d/./ | 2026-11-08 |
+| [Goose](registry/clients/goose.json) | ✓ | ✓ | ✓ | DCR, CIMD, PKCE | /F/r/e/e/ /a/n/d/ /o/p/e/n/ /s/o/u/r/c/e/ /(/A/p/a/c/h/e/-/2/./0/)/./ | 2026-11-08 |
+| [LM Studio](registry/clients/lm-studio.json) | ✓ | ✓ | ✓ | ? | /F/r/e/e/ /a/p/p/;/ /M/C/P/ /s/i/n/c/e/ /v/e/r/s/i/o/n/ /0/./3/./1/7/./ | 2026-11-08 |
+| [Zed](registry/clients/zed.json) | — | ✓ | ✓ | ✓ | /L/o/c/a/l/ /s/e/t/t/i/n/g/,/ /n/o/t/ /t/i/e/d/ /t/o/ /a/ /p/l/a/n/./ | 2026-11-08 |
+| [Cline](registry/clients/cline.json) | — | ✓ | ✓ | ✓ | /F/r/e/e/ /a/n/d/ /o/p/e/n/ /s/o/u/r/c/e/./ /E/n/t/e/r/p/r/i/s/e/ /a/d/m/i/n/s/ /c/a/n/ /a/l/l/o/w/l/i/s/t/ /s/e/r/v/e/r/s/ /o/r/ /b/l/o/c/k/ /p/e/r/s/o/n/a/l/ /o/n/e/s/./ | 2026-11-08 |
+| [Roo Code](registry/clients/roo-code.json) | — | ✓ | ✓ | ? | /O/p/e/n/ /s/o/u/r/c/e/;/ /n/o/ /p/l/a/n/ /r/e/s/t/r/i/c/t/i/o/n/./ | 2026-11-08 |
+| [Kilo Code](registry/clients/kilo-code.json) | — | ✓ | ✓ | ✓ | /N/o/ /p/l/a/n/ /r/e/s/t/r/i/c/t/i/o/n/ /d/o/c/u/m/e/n/t/e/d/./ | 2026-11-08 |
+| [OpenCode](registry/clients/opencode.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | /O/p/e/n/ /s/o/u/r/c/e/,/ /n/o/ /p/l/a/n/ /r/e/s/t/r/i/c/t/i/o/n/./ | 2026-11-08 |
+| [JetBrains AI](registry/clients/jetbrains.json) | — | ✓ | ✓ | ✓ | /J/e/t/B/r/a/i/n/s/ /A/I/ /a/c/c/e/s/s/ /i/n/ /a/ /J/e/t/B/r/a/i/n/s/ /I/D/E/ /(/A/I/ /A/s/s/i/s/t/a/n/t/ /o/r/ /J/u/n/i/e/)/./ | 2026-11-08 |
+| [Visual Studio](registry/clients/visual-studio.json) | ✓ | ✓ | ✓ | ✓ | /A/n/y/ /G/i/t/H/u/b/ /C/o/p/i/l/o/t/ /p/l/a/n/,/ /F/r/e/e/ /i/n/c/l/u/d/e/d/./ /V/i/s/u/a/l/ /S/t/u/d/i/o/ /2/0/2/6/,/ /o/r/ /2/0/2/2/ /1/7/./1/4/+/./ | 2026-11-08 |
+| [Kiro](registry/clients/kiro.json) | — | ✓ | ✓ | DCR, CIMD, PKCE | /I/D/E/,/ /C/L/I/ /a/n/d/ /w/e/b/;/ /n/o/ /p/l/a/n/ /r/e/s/t/r/i/c/t/i/o/n/ /f/o/u/n/d/./ /E/n/t/e/r/p/r/i/s/e/ /h/a/s/ /a/n/ /M/C/P/ /r/e/g/i/s/t/r/y/ /f/o/r/ /g/o/v/e/r/n/a/n/c/e/./ | 2026-11-08 |
+| [Warp](registry/clients/warp.json) | — | ✓ | ✓ | ✓ | /N/o/ /p/l/a/n/ /g/a/t/e/ /f/o/r/ /l/o/c/a/l/ /a/g/e/n/t/s/;/ /s/h/a/r/i/n/g/ /s/e/r/v/e/r/s/ /w/i/t/h/ /a/ /t/e/a/m/ /n/e/e/d/s/ /a/ /W/a/r/p/ /t/e/a/m/./ | 2026-11-08 |
+| [Raycast](registry/clients/raycast.json) | — | ✓ | ✓ | DCR, PKCE | /R/a/y/c/a/s/t/ /P/r/o/./ /O/n/ /E/n/t/e/r/p/r/i/s/e/,/ /a/d/m/i/n/s/ /c/a/n/ /s/e/t/ /s/e/r/v/e/r/s/ /f/o/r/ /t/h/e/ /o/r/g/a/n/i/z/a/t/i/o/n/./ | 2026-11-08 |
+| [Msty Studio](registry/clients/msty.json) | — | ✓ | ✓ | ✓ | /N/o/t/ /s/t/a/t/e/d/./ /S/t/u/d/i/o/ /W/e/b/ /n/e/e/d/s/ /S/t/u/d/i/o/ /D/e/s/k/t/o/p/ /t/o/ /r/u/n/ /t/o/o/l/s/./ | 2026-11-08 |
+| [BoltAI](registry/clients/boltai.json) | — | ? | ✓ | ? | /M/C/P/ /s/i/n/c/e/ /M/a/c/ /a/p/p/ /1/./3/4/;/ /p/l/a/n/ /n/o/t/ /s/t/a/t/e/d/./ | 2026-11-08 |
+| [Copilot CLI](registry/clients/copilot-cli.json) | — | ✓ | ✓ | ? | /A/n/y/ /C/o/p/i/l/o/t/ /p/l/a/n/./ /O/r/g/a/n/i/z/a/t/i/o/n/ /p/o/l/i/c/i/e/s/ /(/M/C/P/ /r/e/g/i/s/t/r/y/ /a/n/d/ /a/l/l/o/w/l/i/s/t/)/ /c/a/n/ /l/i/m/i/t/ /w/h/i/c/h/ /s/e/r/v/e/r/s/ /r/u/n/./ | 2026-11-08 |
+| [Augment Code](registry/clients/augment.json) | — | ✓ | ✓ | ? | /N/o/t/ /s/t/a/t/e/d/./ | 2026-11-08 |
+| [Continue](registry/clients/continue.json) | — | ✓ | ✓ | ? | /O/p/e/n/ /s/o/u/r/c/e/;/ /l/o/c/a/l/ /c/o/n/f/i/g/ /n/e/e/d/s/ /n/o/ /p/l/a/n/./ | 2026-11-08 |
+| [Amazon Q Developer](registry/clients/amazon-q.json) | — | ✓ | ✓ | ✓ | /N/o/t/ /s/t/a/t/e/d/./ /A/W/S/ /n/o/w/ /p/o/i/n/t/s/ /p/e/o/p/l/e/ /t/o/ /K/i/r/o/./ | 2026-11-08 |
+| [Instinct](registry/clients/instinct.json) | — | — | — | ? | /I/n/v/i/t/e/-/o/n/l/y/ /c/o/n/s/u/m/e/r/ /a/g/e/n/t/ /o/n/ /i/M/e/s/s/a/g/e/,/ /W/h/a/t/s/A/p/p/ /a/n/d/ /S/M/S/./ | 2026-11-08 |

@@ -11,7 +11,7 @@
 <script type="module" src="./mcp-plug.js"></script>
 <style>
 :root{--bg:#fafaf9;--fg:#16181d;--muted:#5f6673;--line:#e6e7ea;--card:#fff;--soft:#f2f3f5;--accent:#2f6df6;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--fg:#eceef2;--muted:#9aa1ad;--line:#262a33;--card:#15171c;--soft:#1d2027;--accent:#6b9bff}}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--fg:#eceef2;--muted:#9aa1ad;--line:#262a33;--card:#15171c;--soft:#1d2027;--accent:#6b9bff}td.y{color:#4ade80!important}}
 *{box-sizing:border-box}
 body{margin:0;line-height:1.5;font-size:16px}
 a{color:inherit}
@@ -41,7 +41,8 @@ textarea{font-family:ui-monospace,Menlo,monospace;font-size:13px;min-height:64px
 .row{display:flex;gap:10px;align-items:center}
 .row>*{flex:1}
 .out{display:grid;gap:20px;min-width:0}
-pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;white-space:pre-wrap;word-break:break-all}
+.out>*,.grid>*{min-width:0}
+pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere}
 .copyrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .copyrow h2{margin:0}
 .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
@@ -55,7 +56,8 @@ th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vert
 th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:var(--soft)}
 tr:last-child td{border-bottom:0}
 td.y{color:#15803d}td.n{color:var(--muted)}
-.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+td:last-child{white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:0;box-shadow:0 0 0 1px var(--line)}
 footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:14px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
@@ -186,12 +188,14 @@ function update() {
   const s = server();
   const p = $('preview');
   p.setAttribute('theme', $('f-theme').value);
-  p.style.setProperty('--mp-accent', $('f-accent').value || '#2f6df6');
+  const accent = $('f-accent').value.trim();
+  if (accent && accent.toLowerCase() !== '#2f6df6') { p.style.setProperty('--mp-accent', accent); p.style.setProperty('--mp-accent-fg', '#fff'); }
+  else { p.style.removeProperty('--mp-accent'); p.style.removeProperty('--mp-accent-fg'); }
   p.config = { ...s, lang: $('f-lang').value, clients: selected };
   const attrs = [['name', s.name], ['display-name', s.displayName], ['url', s.url], ['command', s.command], ['auth', s.auth], ['headers', s.headers && JSON.stringify(s.headers)], ['lang', $('f-lang').value], ['clients', selected.join(',')]]
     .filter(([, v]) => v).map(([k, v]) => '\n  ' + k + '="' + escAttr(v) + '"').join('');
-  const accent = $('f-accent').value && $('f-accent').value !== '#2f6df6' ? '\n<style>mcp-plug{--mp-accent:' + $('f-accent').value + '}</style>' : '';
-  $('embed').textContent = '<script type="module" src="https://pqgventures.github.io/mcp-plug/mcp-plug.js"><\/script>\n<mcp-plug' + attrs + '\n></mcp-plug>' + accent;
+  const accentCss = accent && accent.toLowerCase() !== '#2f6df6' ? '\n<style>mcp-plug{--mp-accent:' + accent + ';--mp-accent-fg:#fff}</style>' : '';
+  $('embed').textContent = '<script type="module" src="https://pqgventures.github.io/mcp-plug/mcp-plug.js"><\/script>\n<mcp-plug' + attrs + '\n></mcp-plug>' + accentCss;
   let b = [];
   try { b = badges(REGISTRY, s, { clients: selected, lang: $('f-lang').value }); } catch {}
   $('badges').innerHTML = b.map((x) => '<a href="' + escAttr(x.href) + '"><img src="./badges/' + x.client + '.svg" alt="' + escAttr(x.alt) + '"></a>').join('');
@@ -208,7 +212,7 @@ function table() {
     const one = c.methods.some((m) => m.kind === 'link' && !/settings|plugins$|apps$|openConnectors/.test(m.template));
     const oauth = c.auth.oauth ? [c.auth.dcr ? 'DCR' : null, c.auth.cimd ? 'CIMD' : null].filter(Boolean).join(' · ') || t.yes : null;
     return '<tr><td><span class="dot" style="background:' + (c.color || '#888') + '"></span><a href="' + (c.docs || c.homepage) + '">' + c.name + '</a></td>' + yn(one) + yn(c.transports.http) + yn(c.transports.stdio)
-      + (oauth ? '<td class="y">' + oauth + '</td>' : yn(c.auth.oauth)) + '<td>' + (c.plans[ui] || '') + '</td><td class="n">' + c.verified + '</td></tr>';
+      + (oauth ? '<td class="y">' + oauth + '</td>' : yn(c.auth.oauth)) + '<td>' + (c.plans[ui] || '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\x60/g, '') + '</td><td class="n">' + c.verified + '</td></tr>';
   }).join('');
 }
 function i18n() {

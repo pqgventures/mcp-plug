@@ -62,7 +62,7 @@ function clientsTable(registry, lang) {
     const c = registry.clients.find((x) => x.id === id);
     const link = c.methods.find((m) => m.kind === 'link' && !/settings|plugins$|apps$|openConnectors/.test(m.template));
     const oauth = c.auth.oauth ? [c.auth.dcr ? 'DCR' : null, c.auth.cimd ? 'CIMD' : null, c.auth.pkce ? 'PKCE' : null].filter(Boolean).join(', ') || '✓' : yn(c.auth.oauth);
-    return '| [' + c.name + '](registry/clients/' + c.id + '.json) | ' + (link ? '✓' : '—') + ' | ' + yn(c.transports.http) + ' | ' + yn(c.transports.stdio) + ' | ' + oauth + ' | ' + c.plans[lang].replace(/\|/g, '/') + ' | ' + c.verified + ' |';
+    return '| [' + c.name + '](registry/clients/' + c.id + '.json) | ' + (link ? '✓' : '—') + ' | ' + yn(c.transports.http) + ' | ' + yn(c.transports.stdio) + ' | ' + oauth + ' | ' + c.plans[lang].replace(/\\|/g, '/').replace(/\\*\\*/g, '') + ' | ' + c.verified + ' |';
   });
   return head + rows.join('\n') + '\n';
 }
