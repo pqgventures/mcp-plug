@@ -48,7 +48,12 @@
         "pt": "Adicionar ao Cursor"
       },
       "template": "cursor://anysphere.cursor-deeplink/mcp/install?name={{name|uri}}&config={{entry|json|base64|uri}}",
-      "webTemplate": "https://cursor.com/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+      "webTemplate": "https://cursor.com/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
+      "oneClick": true,
+      "short": {
+        "en": "Cursor opens and asks you to confirm.",
+        "pt": "O Cursor abre e pede para você confirmar."
+      }
     },
     {
       "id": "config",

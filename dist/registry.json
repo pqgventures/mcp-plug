@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "updated": "2026-11-08",
   "order": [
     "claude-ai",
@@ -487,6 +487,11 @@
           "note": {
             "en": "Opens Claude's Add custom connector window with the name and URL filled in. Click **Add**, then **Connect**.",
             "pt": "Abre a janela Adicionar conector personalizado do Claude com nome e URL preenchidos. Clique em **Adicionar** e depois em **Conectar**."
+          },
+          "oneClick": true,
+          "short": {
+            "en": "Click **Add**, then **Connect**.",
+            "pt": "Clique em **Adicionar** e depois em **Conectar**."
           }
         },
         {
@@ -713,6 +718,11 @@
           "note": {
             "en": "Remote servers are Claude connectors: add it once and it shows up in Claude Desktop too.",
             "pt": "Servidores remotos são conectores do Claude: adicione uma vez e ele aparece também no Claude Desktop."
+          },
+          "oneClick": true,
+          "short": {
+            "en": "Click **Add**, then **Connect**.",
+            "pt": "Clique em **Adicionar** e depois em **Conectar**."
           }
         },
         {
@@ -1254,7 +1264,12 @@
             "pt": "Adicionar ao Cursor"
           },
           "template": "cursor://anysphere.cursor-deeplink/mcp/install?name={{name|uri}}&config={{entry|json|base64|uri}}",
-          "webTemplate": "https://cursor.com/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+          "webTemplate": "https://cursor.com/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
+          "oneClick": true,
+          "short": {
+            "en": "Cursor opens and asks you to confirm.",
+            "pt": "O Cursor abre e pede para você confirmar."
+          }
         },
         {
           "id": "config",
@@ -1567,7 +1582,12 @@
             "en": "Add to Goose",
             "pt": "Adicionar ao Goose"
           },
-          "template": "goose://extension?url={{url|uri}}&type=streamable_http&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+          "template": "goose://extension?url={{url|uri}}&type=streamable_http&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}",
+          "oneClick": true,
+          "short": {
+            "en": "Goose opens and asks you to confirm.",
+            "pt": "O Goose abre e pede para você confirmar."
+          }
         },
         {
           "id": "deeplink-stdio",
@@ -1578,7 +1598,12 @@
             "en": "Add to Goose",
             "pt": "Adicionar ao Goose"
           },
-          "template": "goose://extension?cmd={{command|uri}}{{#args}}&arg={{.|uri}}{{/args}}&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+          "template": "goose://extension?cmd={{command|uri}}{{#args}}&arg={{.|uri}}{{/args}}&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}",
+          "oneClick": true,
+          "short": {
+            "en": "Goose opens and asks you to confirm.",
+            "pt": "O Goose abre e pede para você confirmar."
+          }
         },
         {
           "id": "config",
@@ -2041,7 +2066,12 @@
             "pt": "Adicionar ao LM Studio"
           },
           "template": "lmstudio://add_mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
-          "webTemplate": "https://lmstudio.ai/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+          "webTemplate": "https://lmstudio.ai/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
+          "oneClick": true,
+          "short": {
+            "en": "LM Studio opens and asks you to confirm.",
+            "pt": "O LM Studio abre e pede para você confirmar."
+          }
         },
         {
           "id": "config",
@@ -2574,6 +2604,11 @@
           "note": {
             "en": "Check the fields and click **Create Integration**.",
             "pt": "Confira os campos e clique em **Create Integration**."
+          },
+          "oneClick": true,
+          "short": {
+            "en": "Check the fields and click **Create Integration**.",
+            "pt": "Confira os campos e clique em **Create Integration**."
           }
         },
         {
@@ -2804,7 +2839,12 @@
             }
           },
           "template": "vsweb+mcp://install/?{{vs|json|uri}}",
-          "webTemplate": "https://vs-open.link/mcp-install?{{vs|json|uri}}"
+          "webTemplate": "https://vs-open.link/mcp-install?{{vs|json|uri}}",
+          "oneClick": true,
+          "short": {
+            "en": "Visual Studio opens and installs it.",
+            "pt": "O Visual Studio abre e instala."
+          }
         },
         {
           "id": "config",
@@ -2910,7 +2950,12 @@
             }
           },
           "template": "vscode:mcp/install?{{vs|json|uri}}",
-          "webTemplate": "https://vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}"
+          "webTemplate": "https://vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}",
+          "oneClick": true,
+          "short": {
+            "en": "VS Code opens; click **Install**.",
+            "pt": "O VS Code abre; clique em **Install**."
+          }
         },
         {
           "id": "insiders",
@@ -2932,7 +2977,8 @@
             }
           },
           "template": "vscode-insiders:mcp/install?{{vs|json|uri}}",
-          "webTemplate": "https://insiders.vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}&quality=insiders"
+          "webTemplate": "https://insiders.vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}&quality=insiders",
+          "oneClick": true
         },
         {
           "id": "cli",

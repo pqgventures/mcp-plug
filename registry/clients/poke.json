@@ -57,6 +57,11 @@
       "note": {
         "en": "Check the fields and click **Create Integration**.",
         "pt": "Confira os campos e clique em **Create Integration**."
+      },
+      "oneClick": true,
+      "short": {
+        "en": "Check the fields and click **Create Integration**.",
+        "pt": "Confira os campos e clique em **Create Integration**."
       }
     },
     {

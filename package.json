@@ -1,19 +1,45 @@
 {
   "name": "mcp-plug",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "How to plug an MCP server into every LLM client and personal agent: a data registry, a zero-dependency install widget, README badges and a CLI.",
   "type": "module",
   "license": "MIT",
   "author": "PQG Ventures",
   "homepage": "https://pqgventures.github.io/mcp-plug/",
-  "repository": { "type": "git", "url": "git+https://github.com/pqgventures/mcp-plug.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pqgventures/mcp-plug.git"
+  },
   "bugs": "https://github.com/pqgventures/mcp-plug/issues",
-  "keywords": ["mcp", "model-context-protocol", "claude", "chatgpt", "cursor", "vscode", "codex", "install", "connector", "web-component"],
-  "bin": { "mcp-plug": "src/cli.js" },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "chatgpt",
+    "cursor",
+    "vscode",
+    "codex",
+    "install",
+    "connector",
+    "web-component"
+  ],
+  "bin": {
+    "mcp-plug": "src/cli.js"
+  },
   "main": "dist/mcp-plug.js",
-  "exports": { ".": "./dist/mcp-plug.js", "./core": "./src/core.js", "./registry.json": "./dist/registry.json" },
-  "files": ["src", "dist", "registry"],
-  "engines": { "node": ">=18" },
+  "exports": {
+    ".": "./dist/mcp-plug.js",
+    "./core": "./src/core.js",
+    "./registry.json": "./dist/registry.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "registry"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
@@ -21,5 +47,8 @@
     "check-links": "node scripts/check-links.mjs",
     "demo": "node scripts/build.mjs && python3 -m http.server 8787 -d docs"
   },
-  "devDependencies": { "ajv": "^8.17.1", "ajv-formats": "^3.0.1" }
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
 }

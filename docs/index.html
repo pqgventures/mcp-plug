@@ -106,6 +106,14 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);f
       <div><label for="f-lang" data-t="lang">Widget language</label><select id="f-lang"><option value="en">English</option><option value="pt">Português</option></select></div>
       <div><label for="f-theme" data-t="theme">Theme</label><select id="f-theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
     </div>
+    <div class="row">
+      <div><label for="f-aud" data-t="aud">Audience</label><select id="f-aud"><option value="" data-t="audDev">Developers</option><option value="consumer" data-t="audAll">Everyone</option></select></div>
+      <div><label for="f-btn" data-t="btn">Button</label><select id="f-btn"><option value="" data-t="solid">Solid</option><option value="outline" data-t="outline">Outline</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="f-primary" data-t="prim">Own tabs</label><select id="f-primary"><option value="" data-t="primAll">Every app</option><option value="2" data-t="prim2">First 2 + Others</option><option value="3" data-t="prim3">First 3 + Others</option></select></div>
+      <div><label for="f-dots" data-t="dotsL">Colour dots</label><select id="f-dots"><option value="" data-t="show">Show</option><option value="none" data-t="hide">Hide</option></select></div>
+    </div>
     <label for="f-accent" data-t="accent">Accent colour</label>
     <input id="f-accent" type="text" value="#2f6df6" spellcheck="false">
   </div>
@@ -144,11 +152,13 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);f
 const T = {
   en: { h1:'Install your MCP server in every AI app', lead:'One open registry of how Claude, ChatGPT, Cursor, VS Code, Codex, Gemini and 25+ other apps add an MCP server, with sources. Drop one tag on your install page, or put badges in your README.',
     your:'Your server', remote:'Remote URL', local:'Local command', name:'Name', display:'Display name', url:'MCP URL', auth:'Sign-in', none:'None', hdr:'API key header', header:'Header', cmd:'Command', apps:'Apps and order', lang:'Widget language', theme:'Theme', accent:'Accent colour',
+    aud:'Audience', audDev:'Developers', audAll:'Everyone', btn:'Button', solid:'Solid', outline:'Outline', prim:'Own tabs', primAll:'Every app', prim2:'First 2 + Others', prim3:'First 3 + Others', dotsL:'Colour dots', show:'Show', hide:'Hide',
     embed:'Put it on your page', copy:'Copy', copied:'Copied', badgesT:'README badges', cliT:'From the terminal', tableT:'Every app, side by side', tableP:'What each app accepts today. Checked against official docs; each entry in the registry links its sources.',
     foot:'MIT licensed. Made by PQG Ventures. Something out of date?', issue:'Open an issue',
     th:['App','One click','Remote (HTTP)','Local (stdio)','OAuth','Plans','Checked'], yes:'yes', no:'no', unk:'?' },
   pt: { h1:'Instale seu servidor MCP em todo app de IA', lead:'Um registro aberto de como Claude, ChatGPT, Cursor, VS Code, Codex, Gemini e mais 25 apps adicionam um servidor MCP, com as fontes. Coloque uma tag na sua página de instalação ou badges no README.',
     your:'Seu servidor', remote:'URL remota', local:'Comando local', name:'Nome', display:'Nome de exibição', url:'URL do MCP', auth:'Login', none:'Nenhum', hdr:'Cabeçalho com chave', header:'Cabeçalho', cmd:'Comando', apps:'Apps e ordem', lang:'Idioma do componente', theme:'Tema', accent:'Cor de destaque',
+    aud:'Público', audDev:'Desenvolvedores', audAll:'Todo mundo', btn:'Botão', solid:'Cheio', outline:'Contorno', prim:'Abas próprias', primAll:'Todos os apps', prim2:'2 primeiros + Outros', prim3:'3 primeiros + Outros', dotsL:'Bolinhas', show:'Mostrar', hide:'Esconder',
     embed:'Coloque na sua página', copy:'Copiar', copied:'Copiado', badgesT:'Badges para o README', cliT:'Pelo terminal', tableT:'Todos os apps lado a lado', tableP:'O que cada app aceita hoje. Conferido na documentação oficial; cada entrada do registro traz as fontes.',
     foot:'Licença MIT. Feito pela PQG Ventures. Algo desatualizado?', issue:'Abra uma issue',
     th:['App','Um clique','Remoto (HTTP)','Local (stdio)','OAuth','Planos','Conferido'], yes:'sim', no:'não', unk:'?' },
@@ -191,8 +201,10 @@ function update() {
   const accent = $('f-accent').value.trim();
   if (accent && accent.toLowerCase() !== '#2f6df6') { p.style.setProperty('--mp-accent', accent); p.style.setProperty('--mp-accent-fg', '#fff'); }
   else { p.style.removeProperty('--mp-accent'); p.style.removeProperty('--mp-accent-fg'); }
-  p.config = { ...s, lang: $('f-lang').value, clients: selected };
-  const attrs = [['name', s.name], ['display-name', s.displayName], ['url', s.url], ['command', s.command], ['auth', s.auth], ['headers', s.headers && JSON.stringify(s.headers)], ['lang', $('f-lang').value], ['clients', selected.join(',')]]
+  const prim = $('f-primary').value ? selected.slice(0, Number($('f-primary').value)) : undefined;
+  const look = { audience: $('f-aud').value || undefined, buttonStyle: $('f-btn').value || undefined, dots: $('f-dots').value || undefined, primary: prim };
+  p.config = { ...s, lang: $('f-lang').value, clients: selected, ...look };
+  const attrs = [['name', s.name], ['display-name', s.displayName], ['url', s.url], ['command', s.command], ['auth', s.auth], ['headers', s.headers && JSON.stringify(s.headers)], ['lang', $('f-lang').value], ['clients', selected.join(',')], ['primary', prim && prim.join(',')], ['audience', look.audience], ['button-style', look.buttonStyle], ['dots', look.dots]]
     .filter(([, v]) => v).map(([k, v]) => '\n  ' + k + '="' + escAttr(v) + '"').join('');
   const accentCss = accent && accent.toLowerCase() !== '#2f6df6' ? '\n<style>mcp-plug{--mp-accent:' + accent + ';--mp-accent-fg:#fff}</style>' : '';
   $('embed').textContent = '<script type="module" src="https://pqgventures.github.io/mcp-plug/mcp-plug.js"><\/script>\n<mcp-plug' + attrs + '\n></mcp-plug>' + accentCss;
@@ -209,7 +221,7 @@ function table() {
   const yn = (v) => (v === true ? '<td class="y">' + t.yes + '</td>' : v === false ? '<td class="n">' + t.no + '</td>' : '<td class="n">' + t.unk + '</td>');
   $('tbl').querySelector('tbody').innerHTML = allIds.map((id) => {
     const c = byId[id];
-    const one = c.methods.some((m) => m.kind === 'link' && !/settings|plugins$|apps$|openConnectors/.test(m.template));
+    const one = c.methods.some((m) => m.oneClick);
     const oauth = c.auth.oauth ? [c.auth.dcr ? 'DCR' : null, c.auth.cimd ? 'CIMD' : null].filter(Boolean).join(' · ') || t.yes : null;
     return '<tr><td><span class="dot" style="background:' + (c.color || '#888') + '"></span><a href="' + (c.docs || c.homepage) + '">' + c.name + '</a></td>' + yn(one) + yn(c.transports.http) + yn(c.transports.stdio)
       + (oauth ? '<td class="y">' + oauth + '</td>' : yn(c.auth.oauth)) + '<td>' + (c.plans[ui] || '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\x60/g, '') + '</td><td class="n">' + c.verified + '</td></tr>';
@@ -225,7 +237,7 @@ document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('clic
 $('t-remote').onclick = () => { mode = 'remote'; $('t-remote').setAttribute('aria-pressed', 'true'); $('t-local').setAttribute('aria-pressed', 'false'); $('remote-fields').hidden = false; $('local-fields').hidden = true; update(); };
 $('t-local').onclick = () => { mode = 'local'; $('t-local').setAttribute('aria-pressed', 'true'); $('t-remote').setAttribute('aria-pressed', 'false'); $('remote-fields').hidden = true; $('local-fields').hidden = false; update(); };
 $('f-auth').onchange = () => { $('hdr-field').hidden = $('f-auth').value !== 'headers'; update(); };
-for (const id of ['f-name', 'f-display', 'f-url', 'f-header', 'f-cmd', 'f-lang', 'f-theme', 'f-accent']) $(id).addEventListener('input', update);
+for (const id of ['f-name', 'f-display', 'f-url', 'f-header', 'f-cmd', 'f-lang', 'f-theme', 'f-accent', 'f-aud', 'f-btn', 'f-primary', 'f-dots']) $(id).addEventListener('input', update);
 document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
   await navigator.clipboard.writeText($(b.dataset.copy).textContent).catch(() => {});
   b.textContent = T[ui].copied; setTimeout(() => (b.textContent = T[ui].copy), 1500);

@@ -2,6 +2,16 @@
 
 Dates are when the registry was checked. Versions follow semver: minor for new clients or install methods, patch for corrections.
 
+## 0.2.0 — 2026-11-08
+
+Widget options asked for by the first product to embed it (Fluxo, an Open Finance app for regular people).
+
+- `audience="consumer"`: one button and one short line; manual steps, server URL, plans and docs go under a closed "Didn't open? Do it by hand"; developer tips (limits) are hidden. New registry fields `oneClick` and `short` on install methods.
+- `primary="claude-ai,chatgpt"`: only those apps get tabs; the rest sit behind an "Others" tab with sub-chips.
+- `button-style="outline"` and new parts `button-primary`, `button-secondary`, `dot`, `manual`, `subtabs`, `subtab`.
+- `dots="none"` hides the colour dots.
+- Single-line commands and URLs keep the Copy button inside the box; multi-line snippets keep it in a header row.
+
 ## 0.1.0 — 2026-11-08
 
 First release.

@@ -63,7 +63,12 @@
         }
       },
       "template": "vscode:mcp/install?{{vs|json|uri}}",
-      "webTemplate": "https://vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}"
+      "webTemplate": "https://vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}",
+      "oneClick": true,
+      "short": {
+        "en": "VS Code opens; click **Install**.",
+        "pt": "O VS Code abre; clique em **Install**."
+      }
     },
     {
       "id": "insiders",
@@ -85,7 +90,8 @@
         }
       },
       "template": "vscode-insiders:mcp/install?{{vs|json|uri}}",
-      "webTemplate": "https://insiders.vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}&quality=insiders"
+      "webTemplate": "https://insiders.vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}&quality=insiders",
+      "oneClick": true
     },
     {
       "id": "cli",

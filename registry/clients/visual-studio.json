@@ -55,7 +55,12 @@
         }
       },
       "template": "vsweb+mcp://install/?{{vs|json|uri}}",
-      "webTemplate": "https://vs-open.link/mcp-install?{{vs|json|uri}}"
+      "webTemplate": "https://vs-open.link/mcp-install?{{vs|json|uri}}",
+      "oneClick": true,
+      "short": {
+        "en": "Visual Studio opens and installs it.",
+        "pt": "O Visual Studio abre e instala."
+      }
     },
     {
       "id": "config",

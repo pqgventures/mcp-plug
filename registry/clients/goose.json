@@ -44,7 +44,12 @@
         "en": "Add to Goose",
         "pt": "Adicionar ao Goose"
       },
-      "template": "goose://extension?url={{url|uri}}&type=streamable_http&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+      "template": "goose://extension?url={{url|uri}}&type=streamable_http&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}",
+      "oneClick": true,
+      "short": {
+        "en": "Goose opens and asks you to confirm.",
+        "pt": "O Goose abre e pede para você confirmar."
+      }
     },
     {
       "id": "deeplink-stdio",
@@ -55,7 +60,12 @@
         "en": "Add to Goose",
         "pt": "Adicionar ao Goose"
       },
-      "template": "goose://extension?cmd={{command|uri}}{{#args}}&arg={{.|uri}}{{/args}}&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+      "template": "goose://extension?cmd={{command|uri}}{{#args}}&arg={{.|uri}}{{/args}}&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}",
+      "oneClick": true,
+      "short": {
+        "en": "Goose opens and asks you to confirm.",
+        "pt": "O Goose abre e pede para você confirmar."
+      }
     },
     {
       "id": "config",

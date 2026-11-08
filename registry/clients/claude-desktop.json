@@ -60,6 +60,11 @@
       "note": {
         "en": "Remote servers are Claude connectors: add it once and it shows up in Claude Desktop too.",
         "pt": "Servidores remotos são conectores do Claude: adicione uma vez e ele aparece também no Claude Desktop."
+      },
+      "oneClick": true,
+      "short": {
+        "en": "Click **Add**, then **Connect**.",
+        "pt": "Clique em **Adicionar** e depois em **Conectar**."
       }
     },
     {

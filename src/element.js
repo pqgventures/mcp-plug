@@ -17,7 +17,7 @@ export const TEXTS = {
     'unsupported.headers': '{client} cannot send the custom headers this server needs.',
     'unsupported.no-custom': '{client} does not let you add your own MCP servers yet.',
     'unsupported.unsupported': 'There is no known way to add this server to {client} yet.',
-    clients: 'Apps',
+    clients: 'Apps', others: 'Others', manual: "Didn't open? Do it by hand", more: 'More details',
   },
   pt: {
     heading: 'Conecte o {name} à sua IA',
@@ -34,10 +34,11 @@ export const TEXTS = {
     'unsupported.headers': 'O {client} não envia os cabeçalhos que este servidor exige.',
     'unsupported.no-custom': 'O {client} ainda não deixa adicionar servidores MCP próprios.',
     'unsupported.unsupported': 'Ainda não há um jeito conhecido de adicionar este servidor ao {client}.',
-    clients: 'Apps',
+    clients: 'Apps', others: 'Outros', manual: 'Não abriu? Faça à mão', more: 'Mais detalhes',
   },
 };
 
+const OTHERS = '__others';
 const OS_LABEL = { macos: 'macOS', windows: 'Windows', linux: 'Linux', any: '' };
 
 function detectOs() {
@@ -78,14 +79,26 @@ h2{font-size:17px;margin:0 0 12px;font-weight:650;letter-spacing:-.01em}
 .tabs::-webkit-scrollbar{display:none}
 .tabs.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
 .tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--mp-border);background:var(--mp-bg);color:var(--mp-fg);font:inherit;font-size:14px;padding:7px 12px;border-radius:999px;cursor:pointer;scroll-snap-align:start;white-space:nowrap;min-height:36px}
-.tab:hover{background:var(--mp-soft)}
+@media (hover:hover){.tab:hover{background:var(--mp-soft)}}
 .tab[aria-selected=true]{background:var(--mp-fg);color:var(--mp-bg);border-color:var(--mp-fg)}
 .dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 0 1px var(--mp-border)}
 .tab.off{opacity:.55}
 .panel{display:grid;gap:14px;min-width:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--mp-accent);color:var(--mp-accent-fg);text-decoration:none;font-weight:600;font-size:15px;padding:11px 16px;border-radius:10px;border:0;cursor:pointer;min-height:44px}
-.btn:hover{filter:brightness(1.06)}
+@media (hover:hover){.btn:hover{filter:brightness(1.06)}}
 .btn.secondary{background:var(--mp-soft);color:var(--mp-fg);border:1px solid var(--mp-border)}
+.outline .btn.primary{background:transparent;color:var(--mp-accent);border:2px solid var(--mp-accent)}
+@media (hover:hover){.outline .btn.primary:hover{background:var(--mp-soft);filter:none}}
+.code.one{display:flex;align-items:flex-start;gap:8px}
+.code.one pre{flex:1;min-width:0}
+.code.one .copy{margin:6px 6px 6px 0}
+.sub{display:flex;flex-wrap:wrap;gap:6px}
+.subtab{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--mp-border);background:var(--mp-bg);color:var(--mp-fg);font:inherit;font-size:13px;padding:5px 10px;border-radius:999px;cursor:pointer;min-height:32px}
+.subtab[aria-pressed=true]{border-color:var(--mp-fg);background:var(--mp-soft);box-shadow:inset 0 0 0 1px var(--mp-fg)}
+.subtab.off{opacity:.55}
+details.manual{margin-top:0}
+details.manual summary{color:var(--mp-fg);font-size:14px}
+details.manual .inner{display:grid;gap:14px;margin-top:12px}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .label{font-size:13px;color:var(--mp-muted);margin:0 0 6px}
 .code{background:var(--mp-code-bg);border:1px solid var(--mp-border);border-radius:10px;min-width:0}
@@ -111,7 +124,7 @@ summary{cursor:pointer}
 
 export class McpPlugElement extends HTMLElement {
   static get observedAttributes() {
-    return ['name', 'display-name', 'url', 'transport', 'command', 'args', 'env', 'headers', 'auth', 'lang', 'clients', 'exclude', 'default-client', 'heading', 'listings', 'texts', 'bridge', 'hide-footer'];
+    return ['name', 'display-name', 'url', 'transport', 'command', 'args', 'env', 'headers', 'auth', 'lang', 'clients', 'exclude', 'default-client', 'heading', 'listings', 'texts', 'bridge', 'hide-footer', 'audience', 'primary', 'dots', 'button-style'];
   }
 
   constructor() {
@@ -122,7 +135,12 @@ export class McpPlugElement extends HTMLElement {
     this._registry = REGISTRY;
   }
 
-  set config(v) { this._config = v; this._render(); }
+  set config(v) {
+    const key = (x) => JSON.stringify([x && x.clients, x && x.primary, x && x.audience]);
+    if (key(v) !== key(this._config)) { this._userPicked = false; this._lastOther = null; }
+    this._config = v;
+    this._render();
+  }
   get config() { return this._config; }
   set registry(v) { this._registry = v; this._render(); }
   get registry() { return this._registry; }
@@ -146,12 +164,13 @@ export class McpPlugElement extends HTMLElement {
       env: parseJson(a('env'), undefined), headers: parseJson(a('headers'), undefined), auth: a('auth'),
       clients: a('clients'), exclude: a('exclude'), defaultClient: a('default-client'), heading: a('heading'),
       listings: parseJson(a('listings'), undefined), texts: parseJson(a('texts'), undefined),
-      bridge: a('bridge') !== 'false',
+      bridge: a('bridge') !== 'false', audience: a('audience'), primary: a('primary'), dots: a('dots'), buttonStyle: a('button-style'),
       ...fromScript, ...(this._config || {}),
     };
     for (const k of Object.keys(cfg)) if (cfg[k] == null || cfg[k] === '') delete cfg[k];
     cfg.clients = cfg.clients ? list(cfg.clients) : undefined;
     cfg.exclude = cfg.exclude ? list(cfg.exclude) : undefined;
+    cfg.primary = cfg.primary ? list(cfg.primary) : undefined;
     if (cfg.clients && cfg.clients[0] === 'all') cfg.clients = this._registry.all || this._registry.clients.map((c) => c.id);
     return cfg;
   }
@@ -182,23 +201,30 @@ export class McpPlugElement extends HTMLElement {
     // Apps that can't use this server go last, dimmed.
     const items = [...this._plan].sort((a, b) => Number(!a.actions.length) - Number(!b.actions.length));
     if (!items.length) { root.innerHTML = ''; return; }
+    // primary="a,b": those get their own tabs, the rest share an "Others" tab.
+    const primary = cfg.primary && cfg.primary.length ? cfg.primary.filter((id) => items.some((c) => c.id === id)) : null;
+    this._top = primary ? primary.map((id) => items.find((c) => c.id === id)) : items;
+    this._rest = primary ? items.filter((c) => !primary.includes(c.id)) : [];
     const current = items.find((c) => c.id === this._selected);
     // Move off a tab that can't serve this server unless the visitor chose it.
     if (!current || (!current.actions.length && !this._userPicked)) {
-      this._selected = (cfg.defaultClient && items.some((c) => c.id === cfg.defaultClient) && cfg.defaultClient) || (items.find((c) => c.actions.length) || items[0]).id;
+      const pool = this._top.length ? this._top : items;
+      this._selected = (cfg.defaultClient && items.some((c) => c.id === cfg.defaultClient) && cfg.defaultClient) || (pool.find((c) => c.actions.length) || pool[0]).id;
     }
     const heading = cfg.heading === 'none' ? '' : '<h2 part="heading">' + esc(cfg.heading || this._t('heading', { name: cfg.displayName || cfg.name })) + '</h2>';
-    const colors = Object.fromEntries(this._registry.clients.map((c) => [c.id, c.color || '#6b7280']));
-    const tabs = items.map((c) => '<button class="tab' + (c.actions.length ? '' : ' off') + '" part="tab" role="tab" id="tab-' + c.id + '" aria-controls="panel" aria-selected="' + (c.id === this._selected) + '" data-id="' + c.id + '">'
-      + '<span class="dot" style="background:' + esc(colors[c.id]) + '"></span>' + esc(c.name) + '</button>').join('');
-    root.innerHTML = '<style>' + CSS + '</style><div class="box" part="box">' + heading
+    const tops = this._top.map((c) => ({ id: c.id, name: c.name, off: !c.actions.length }));
+    if (this._rest.length) tops.push({ id: OTHERS, name: this._t('others'), off: false });
+    const tabs = tops.map((c) => '<button class="tab' + (c.off ? ' off' : '') + '" part="tab" role="tab" id="tab-' + c.id + '" aria-controls="panel" aria-selected="' + (c.id === this._topId()) + '" data-id="' + c.id + '">'
+      + this._dot(c.id) + esc(c.name) + '</button>').join('');
+    const boxClass = 'box' + (cfg.buttonStyle === 'outline' ? ' outline' : '') + (cfg.audience === 'consumer' ? ' consumer' : '');
+    root.innerHTML = '<style>' + CSS + '</style><div class="' + boxClass + '" part="box">' + heading
       + '<div class="tabs" role="tablist" aria-label="' + esc(this._t('clients')) + '" part="tabs">' + tabs + '</div>'
       + '<div class="panel" id="panel" role="tabpanel" part="panel"></div></div>';
     root.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => this._select(b.dataset.id)));
     root.querySelector('.tabs').addEventListener('keydown', (e) => {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      const ids = items.map((c) => c.id);
-      const i = ids.indexOf(this._selected) + (e.key === 'ArrowRight' ? 1 : -1);
+      const ids = tops.map((c) => c.id);
+      const i = ids.indexOf(this._topId()) + (e.key === 'ArrowRight' ? 1 : -1);
       const next = ids[(i + ids.length) % ids.length];
       this._select(next);
       root.getElementById('tab-' + next).focus();
@@ -208,55 +234,63 @@ export class McpPlugElement extends HTMLElement {
     strip.addEventListener('scroll', fade, { passive: true });
     if (globalThis.ResizeObserver) new ResizeObserver(fade).observe(strip);
     fade();
-    const sel = root.getElementById('tab-' + this._selected);
+    const sel = root.getElementById('tab-' + this._topId());
     if (sel) strip.scrollLeft = Math.max(0, sel.offsetLeft - strip.offsetLeft - 8);
     this._renderPanel();
   }
 
+  _topId() {
+    return this._rest && this._rest.some((c) => c.id === this._selected) ? OTHERS : this._selected;
+  }
+
+  _dot(id) {
+    if (this._cfg.dots === 'none') return '';
+    const c = this._registry.clients.find((x) => x.id === id);
+    return c ? '<span class="dot" part="dot" style="background:' + esc(c.color || '#6b7280') + '"></span>' : '';
+  }
+
   _select(id) {
+    if (id === OTHERS) {
+      const keep = this._rest.find((c) => c.id === this._lastOther);
+      id = (keep || this._rest.find((c) => c.actions.length) || this._rest[0]).id;
+    }
     this._selected = id;
     this._userPicked = true;
-    this.shadowRoot.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.id === id)));
-    const tab = this.shadowRoot.getElementById('tab-' + id);
+    if (this._rest.some((c) => c.id === id)) this._lastOther = id;
+    const top = this._topId();
+    this.shadowRoot.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.id === top)));
+    const tab = this.shadowRoot.getElementById('tab-' + top);
     if (tab && tab.scrollIntoView) tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     this._renderPanel();
     this._emit('select', { client: id });
   }
 
+  // Single-line text keeps Copy inside the box; multi-line gets a header row.
   _codeBlock(labelHtml, text, data) {
-    return '<div class="head"><p class="label">' + labelHtml + '</p><button class="copy" part="copy" ' + data + '>' + esc(this._t('copy')) + '</button></div>'
-      + '<div class="code"><pre part="code">' + esc(text) + '</pre></div>';
+    const copy = '<button class="copy" part="copy" ' + data + '>' + esc(this._t('copy')) + '</button>';
+    if (!String(text).includes('\n')) {
+      return (labelHtml ? '<p class="label">' + labelHtml + '</p>' : '') + '<div class="code one"><pre part="code">' + esc(text) + '</pre>' + copy + '</div>';
+    }
+    return '<div class="head"><p class="label">' + labelHtml + '</p>' + copy + '</div><div class="code"><pre part="code">' + esc(text) + '</pre></div>';
   }
 
-  _renderPanel() {
-    const c = this._plan.find((x) => x.id === this._selected);
-    const panel = this.shadowRoot.getElementById('panel');
-    if (!c) return;
-    panel.setAttribute('aria-labelledby', 'tab-' + c.id);
+  _button(a, secondary) {
+    const web = /^https?:/i.test(a.href);
+    const kind = secondary ? 'secondary' : 'primary';
+    return '<a class="btn ' + kind + '" part="button button-' + kind + '" data-method="' + esc(a.method) + '" href="' + esc(a.href) + '"' + (web ? ' target="_blank" rel="noopener"' : '') + '>' + esc(a.label) + '</a>';
+  }
+
+  _actionsHtml(c, actions, copyAttr, withUrl) {
     const cfg = this._cfg;
     const os = detectOs();
     const parts = [];
-    this._copies = [];
-    const copyAttr = (text, method) => { this._copies.push({ text, method }); return 'data-copy="' + (this._copies.length - 1) + '"'; };
-    if (c.listing) {
-      parts.push('<div class="row"><a class="btn" part="button" target="_blank" rel="noopener" data-method="directory" href="' + esc(c.listing) + '">' + esc(this._t('directory', { name: cfg.displayName || cfg.name, client: c.name })) + '</a></div>');
-    }
-    if (c.unsupported) {
-      parts.push('<p class="warn">' + esc(this._t('unsupported.' + c.unsupported, { client: c.name })) + '</p>');
-    }
-    const links = c.actions.filter((a) => a.kind === 'link');
+    const links = actions.filter((a) => a.kind === 'link');
     if (links.length) {
-      parts.push('<div class="row">' + links.map((a, i) => {
-        const web = /^https?:/i.test(a.href);
-        return '<a class="btn' + (i || c.listing ? ' secondary' : '') + '" part="button" data-method="' + esc(a.method) + '" href="' + esc(a.href) + '"' + (web ? ' target="_blank" rel="noopener"' : '') + '>' + esc(a.label) + '</a>';
-      }).join('') + '</div>');
+      parts.push('<div class="row">' + links.map((a, i) => this._button(a, i > 0 || !!c.listing)).join('') + '</div>');
       for (const a of links) if (a.note) parts.push('<p class="note">' + inline(a.note) + '</p>');
     }
-    const hasSteps = c.actions.some((a) => a.kind === 'steps');
-    if (hasSteps && cfg.url) {
-      parts.push('<div>' + this._codeBlock(esc(this._t('serverUrl')), cfg.url, copyAttr(cfg.url, 'url')) + '</div>');
-    }
-    for (const a of c.actions) {
+    if (withUrl && cfg.url) parts.push('<div>' + this._codeBlock(esc(this._t('serverUrl')), cfg.url, copyAttr(cfg.url, 'url')) + '</div>');
+    for (const a of actions) {
       if (a.kind === 'command' || a.kind === 'config') {
         let label = a.label;
         let extra = '';
@@ -271,19 +305,64 @@ export class McpPlugElement extends HTMLElement {
         parts.push('<div>' + (a.label ? '<p class="label">' + inline(a.label) + '</p>' : '') + '<ol>' + a.steps.map((s) => '<li>' + inline(s) + '</li>').join('') + '</ol>' + (a.note ? '<p class="note">' + inline(a.note) + '</p>' : '') + '</div>');
       }
     }
-    if (c.actions.some((a) => a.bridged)) parts.push('<p class="note">' + esc(this._t('bridged')) + '</p>');
-    else if (cfg.auth === 'oauth' && c.actions.length) parts.push('<p class="note">' + esc(this._t('oauth')) + '</p>');
-    if (!this.hasAttribute('hide-footer') && !cfg.hideFooter) {
-      const bits = [];
-      if (c.plans) bits.push('<span>' + esc(this._t('plans')) + ': ' + inline(c.plans) + '</span>');
-      if (c.docs) bits.push('<a href="' + esc(c.docs) + '" target="_blank" rel="noopener">' + esc(this._t('docs')) + '</a>');
-      if (c.verified) bits.push('<span>' + esc(this._t('checked', { date: c.verified })) + '</span>');
-      let lim = '';
-      if (c.limits && c.limits.length) lim = '<details><summary>' + esc(this._t('limits')) + '</summary><ul>' + c.limits.map((l) => '<li>' + inline(l) + '</li>').join('') + '</ul></details>';
-      parts.push(lim + '<div class="foot" part="footer">' + bits.join('') + '</div>');
+    return parts;
+  }
+
+  _infoLine(c, withChecked) {
+    const bits = [];
+    if (c.plans) bits.push('<span>' + esc(this._t('plans')) + ': ' + inline(c.plans) + '</span>');
+    if (c.docs) bits.push('<a href="' + esc(c.docs) + '" target="_blank" rel="noopener">' + esc(this._t('docs')) + '</a>');
+    if (withChecked && c.verified) bits.push('<span>' + esc(this._t('checked', { date: c.verified })) + '</span>');
+    return bits.length ? '<div class="foot" part="footer">' + bits.join('') + '</div>' : '';
+  }
+
+  _renderPanel() {
+    const c = this._plan.find((x) => x.id === this._selected);
+    const panel = this.shadowRoot.getElementById('panel');
+    if (!c) return;
+    panel.setAttribute('aria-labelledby', 'tab-' + this._topId());
+    const cfg = this._cfg;
+    const consumer = cfg.audience === 'consumer';
+    const hideFooter = this.hasAttribute('hide-footer') || cfg.hideFooter;
+    const parts = [];
+    this._copies = [];
+    const copyAttr = (text, method) => { this._copies.push({ text, method }); return 'data-copy="' + (this._copies.length - 1) + '"'; };
+    if (this._topId() === OTHERS) {
+      parts.push('<div class="sub" role="group" part="subtabs">' + this._rest.map((o) => '<button class="subtab' + (o.actions.length ? '' : ' off') + '" part="subtab" aria-pressed="' + (o.id === c.id) + '" data-sub="' + o.id + '">' + this._dot(o.id) + esc(o.name) + '</button>').join('') + '</div>');
+    }
+    if (c.listing) {
+      parts.push('<div class="row"><a class="btn primary" part="button button-primary" target="_blank" rel="noopener" data-method="directory" href="' + esc(c.listing) + '">' + esc(this._t('directory', { name: cfg.displayName || cfg.name, client: c.name })) + '</a></div>');
+    }
+    if (c.unsupported && !c.actions.length) parts.push('<p class="warn">' + esc(this._t('unsupported.' + c.unsupported, { client: c.name })) + '</p>');
+    const hasSteps = c.actions.some((a) => a.kind === 'steps');
+    const oneClick = c.actions.filter((a) => a.kind === 'link' && a.oneClick);
+    if (consumer && oneClick.length) {
+      // People who aren't developers: one button and one line; everything else behind "Didn't open?".
+      parts.push('<div class="row">' + oneClick.slice(0, 1).map((a) => this._button(a, !!c.listing)).join('') + '</div>');
+      const line = oneClick[0].short || oneClick[0].note;
+      if (line) parts.push('<p class="note">' + inline(line) + '</p>');
+      const rest = c.actions.filter((a) => a !== oneClick[0] && !(a.kind === 'link' && a.oneClick));
+      const inner = this._actionsHtml(c, rest, copyAttr, hasSteps || !rest.length);
+      if (!hideFooter) inner.push(this._infoLine(c, false));
+      parts.push('<details class="manual" part="manual"><summary>' + esc(this._t('manual')) + '</summary><div class="inner">' + inner.join('') + '</div></details>');
+    } else {
+      parts.push(...this._actionsHtml(c, c.actions, copyAttr, hasSteps));
+      if (c.actions.some((a) => a.bridged)) parts.push('<p class="note">' + esc(this._t('bridged')) + '</p>');
+      else if (cfg.auth === 'oauth' && c.actions.length) parts.push('<p class="note">' + esc(this._t('oauth')) + '</p>');
+      if (!hideFooter) {
+        if (consumer) {
+          const info = this._infoLine(c, false);
+          if (info) parts.push('<details class="manual" part="manual"><summary>' + esc(this._t('more')) + '</summary><div class="inner">' + info + '</div></details>');
+        } else {
+          let lim = '';
+          if (c.limits && c.limits.length) lim = '<details><summary>' + esc(this._t('limits')) + '</summary><ul>' + c.limits.map((l) => '<li>' + inline(l) + '</li>').join('') + '</ul></details>';
+          parts.push(lim + this._infoLine(c, true));
+        }
+      }
     }
     panel.innerHTML = parts.join('');
     panel.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', () => this._copy(b)));
+    panel.querySelectorAll('[data-sub]').forEach((b) => b.addEventListener('click', () => this._select(b.dataset.sub)));
     panel.querySelectorAll('a[data-method]').forEach((l) => l.addEventListener('click', () => this._emit('action', { client: c.id, method: l.dataset.method, kind: 'link', href: l.getAttribute('href') })));
   }
 

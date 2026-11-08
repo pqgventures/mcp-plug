@@ -65,6 +65,11 @@
       "note": {
         "en": "Opens Claude's Add custom connector window with the name and URL filled in. Click **Add**, then **Connect**.",
         "pt": "Abre a janela Adicionar conector personalizado do Claude com nome e URL preenchidos. Clique em **Adicionar** e depois em **Conectar**."
+      },
+      "oneClick": true,
+      "short": {
+        "en": "Click **Add**, then **Connect**.",
+        "pt": "Clique em **Adicionar** e depois em **Conectar**."
       }
     },
     {

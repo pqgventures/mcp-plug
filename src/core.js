@@ -1,7 +1,7 @@
 // mcp-plug core: turns a server description + the client registry into install actions.
 // Runs unchanged in browsers and Node (no dependencies).
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 const SAFE_SHELL = /^[A-Za-z0-9_\/.:=@%+,-]+$/;
 
@@ -279,6 +279,8 @@ function renderMethod(client, method, ctx, lang, extra) {
     steps: (method.steps || []).map((s) => render(pick(s, lang), local)),
     note: render(pick(method.note, lang), local) || undefined,
     primary: !!method.primary,
+    oneClick: !!method.oneClick,
+    short: render(pick(method.short, lang), local) || undefined,
   };
 }
 

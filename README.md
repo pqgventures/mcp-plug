@@ -24,6 +24,12 @@ The widget shows one tab per app: a one-click button where the app has one (Clau
 | `theme` | `auto`, `light` or `dark`. Colours via CSS variables such as `--mp-accent` and `::part(button)` |
 | `texts` | JSON to replace any text, e.g. `{"pt":{"heading":"Conecte o Fluxo"}}` |
 | `listings` | JSON with your directory pages, e.g. `{"claude-ai":"https://claude.ai/directory/..."}` |
+| `audience` | `consumer` for people who aren't developers: one button and one line, with manual steps, plans and docs under "Didn't open? Do it by hand"; developer tips hidden |
+| `primary` | Apps that get their own tab, e.g. `claude-ai,chatgpt`; the rest share an "Others" tab |
+| `button-style` | `outline` when the widget sits next to your own main button |
+| `dots` | `none` hides the colour dots on tabs |
+
+Style parts with `::part(box | heading | tabs | tab | dot | panel | button | button-primary | button-secondary | code | copy | manual | subtabs | subtab | footer)`.
 
 It fires `mcp-plug:action` (`{client, method, kind}`) on every click and copy, so you can count installs. You can also set `element.config = {...}` from JavaScript, or self-host the single file `dist/mcp-plug.js` (ESM) or `dist/mcp-plug.global.js` (plain script).
 

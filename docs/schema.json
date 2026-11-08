@@ -146,6 +146,14 @@
         "webTemplate": {
           "type": "string",
           "description": "https:// equivalent of an app-scheme link, used for README badges"
+        },
+        "oneClick": {
+          "type": "boolean",
+          "description": "link that installs or opens a prefilled add dialog (not just a settings page)"
+        },
+        "short": {
+          "$ref": "#/$defs/text",
+          "description": "one-line note for non-developer audiences (audience=consumer)"
         }
       },
       "allOf": [

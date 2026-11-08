@@ -44,7 +44,12 @@
         "pt": "Adicionar ao LM Studio"
       },
       "template": "lmstudio://add_mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
-      "webTemplate": "https://lmstudio.ai/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+      "webTemplate": "https://lmstudio.ai/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
+      "oneClick": true,
+      "short": {
+        "en": "LM Studio opens and asks you to confirm.",
+        "pt": "O LM Studio abre e pede para você confirmar."
+      }
     },
     {
       "id": "config",
