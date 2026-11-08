@@ -89,7 +89,7 @@ h2{font-size:17px;margin:0 0 12px;font-weight:650;letter-spacing:-.01em}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .label{font-size:13px;color:var(--mp-muted);margin:0 0 6px}
 .code{background:var(--mp-code-bg);border:1px solid var(--mp-border);border-radius:10px;min-width:0}
-.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 6px}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:0 0 6px}
 .head .label{margin:0}
 pre{margin:0;padding:12px;font-family:var(--mp-mono);font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:normal;overflow-wrap:anywhere;color:var(--mp-fg)}
 .copy{flex:none;font:inherit;font-size:13px;background:var(--mp-bg);color:var(--mp-fg);border:1px solid var(--mp-border);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:32px}
@@ -182,7 +182,9 @@ export class McpPlugElement extends HTMLElement {
     // Apps that can't use this server go last, dimmed.
     const items = [...this._plan].sort((a, b) => Number(!a.actions.length) - Number(!b.actions.length));
     if (!items.length) { root.innerHTML = ''; return; }
-    if (!this._selected || !items.some((c) => c.id === this._selected)) {
+    const current = items.find((c) => c.id === this._selected);
+    // Move off a tab that can't serve this server unless the visitor chose it.
+    if (!current || (!current.actions.length && !this._userPicked)) {
       this._selected = (cfg.defaultClient && items.some((c) => c.id === cfg.defaultClient) && cfg.defaultClient) || (items.find((c) => c.actions.length) || items[0]).id;
     }
     const heading = cfg.heading === 'none' ? '' : '<h2 part="heading">' + esc(cfg.heading || this._t('heading', { name: cfg.displayName || cfg.name })) + '</h2>';
@@ -206,11 +208,14 @@ export class McpPlugElement extends HTMLElement {
     strip.addEventListener('scroll', fade, { passive: true });
     if (globalThis.ResizeObserver) new ResizeObserver(fade).observe(strip);
     fade();
+    const sel = root.getElementById('tab-' + this._selected);
+    if (sel) strip.scrollLeft = Math.max(0, sel.offsetLeft - strip.offsetLeft - 8);
     this._renderPanel();
   }
 
   _select(id) {
     this._selected = id;
+    this._userPicked = true;
     this.shadowRoot.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.id === id)));
     const tab = this.shadowRoot.getElementById('tab-' + id);
     if (tab && tab.scrollIntoView) tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
