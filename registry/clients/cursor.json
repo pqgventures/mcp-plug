@@ -1,0 +1,105 @@
+{
+  "$schema": "../schema.json",
+  "id": "cursor",
+  "name": "Cursor",
+  "vendor": "Anysphere",
+  "category": "ide",
+  "color": "#111111",
+  "homepage": "https://cursor.com",
+  "docs": "https://cursor.com/docs/context/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": false,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth with PKCE and DCR (public client); static `auth.CLIENT_ID` for servers without DCR. No CIMD yet.",
+      "pt": "OAuth com PKCE e DCR (cliente público); `auth.CLIENT_ID` fixo para servidores sem DCR. Ainda sem CIMD."
+    }
+  },
+  "plans": {
+    "en": "Available to individual users; Enterprise admins can allowlist servers by command and URL.",
+    "pt": "Disponível para usuários individuais; admins Enterprise podem limitar servidores por comando e URL."
+  },
+  "limits": [
+    {
+      "en": "Install links are capped at 10,000 characters.",
+      "pt": "Links de instalação têm limite de 10.000 caracteres."
+    },
+    {
+      "en": "Cloud Agents keep MCP sign-ins separate from the desktop app.",
+      "pt": "Os Cloud Agents têm login de MCP separado do app."
+    }
+  ],
+  "methods": [
+    {
+      "id": "deeplink",
+      "kind": "link",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to Cursor",
+        "pt": "Adicionar ao Cursor"
+      },
+      "template": "cursor://anysphere.cursor-deeplink/mcp/install?name={{name|uri}}&config={{entry|json|base64|uri}}",
+      "webTemplate": "https://cursor.com/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in the config file",
+        "pt": "Ou no arquivo de configuração"
+      },
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "format": "json",
+      "file": {
+        "macos": "~/.cursor/mcp.json",
+        "windows": "%USERPROFILE%\\.cursor\\mcp.json",
+        "linux": "~/.cursor/mcp.json"
+      },
+      "note": {
+        "en": "Per project: `.cursor/mcp.json` in the repo.",
+        "pt": "Por projeto: `.cursor/mcp.json` no repositório."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://cursor.com/docs/context/mcp/install-links",
+      "checked": "2026-11-08",
+      "title": "Cursor MCP install links"
+    },
+    {
+      "url": "https://cursor.com/docs/context/mcp",
+      "checked": "2026-11-08",
+      "title": "Cursor MCP"
+    },
+    {
+      "url": "https://cursor.com/docs/integrations/deeplinks",
+      "checked": "2026-11-08",
+      "title": "Cursor deeplinks"
+    },
+    {
+      "url": "https://forum.cursor.com/t/mcp-oauth-cimd-support-plans-and-timelines/148096/2",
+      "checked": "2026-11-08",
+      "title": "CIMD support (forum)"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

@@ -1,0 +1,162 @@
+{
+  "$schema": "../schema.json",
+  "id": "vscode",
+  "name": "VS Code",
+  "vendor": "Microsoft",
+  "category": "ide",
+  "color": "#0078d4",
+  "homepage": "https://code.visualstudio.com",
+  "docs": "https://code.visualstudio.com/docs/copilot/customization/mcp-servers",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth with DCR and PKCE; secrets through `${input:...}` prompts or `${env:...}`.",
+      "pt": "OAuth com DCR e PKCE; segredos por `${input:...}` ou `${env:...}`."
+    }
+  },
+  "plans": {
+    "en": "Any GitHub Copilot plan, Free included. Business and Enterprise admins control MCP by policy.",
+    "pt": "Qualquer plano do GitHub Copilot, inclusive o Free. Admins Business e Enterprise controlam o MCP por política."
+  },
+  "limits": [
+    {
+      "en": "A chat request can use at most 128 tools.",
+      "pt": "Um pedido no chat usa no máximo 128 ferramentas."
+    },
+    {
+      "en": "Workspace servers need Workspace Trust.",
+      "pt": "Servidores do projeto exigem Workspace Trust."
+    },
+    {
+      "en": "The install link opens a review screen; the person clicks **Install**.",
+      "pt": "O link abre uma tela de revisão; a pessoa clica em **Install**."
+    }
+  ],
+  "methods": [
+    {
+      "id": "deeplink",
+      "kind": "link",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Install in VS Code",
+        "pt": "Instalar no VS Code"
+      },
+      "vars": {
+        "vs": {
+          "name": "{{name}}",
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        },
+        "cfg": {
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        }
+      },
+      "template": "vscode:mcp/install?{{vs|json|uri}}",
+      "webTemplate": "https://vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}"
+    },
+    {
+      "id": "insiders",
+      "kind": "link",
+      "transport": "both",
+      "label": {
+        "en": "VS Code Insiders",
+        "pt": "VS Code Insiders"
+      },
+      "vars": {
+        "vs": {
+          "name": "{{name}}",
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        },
+        "cfg": {
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        }
+      },
+      "template": "vscode-insiders:mcp/install?{{vs|json|uri}}",
+      "webTemplate": "https://insiders.vscode.dev/redirect/mcp/install?name={{name|uri}}&config={{cfg|json|uri}}&quality=insiders"
+    },
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "label": {
+        "en": "Or from the terminal",
+        "pt": "Ou pelo terminal"
+      },
+      "vars": {
+        "vs": {
+          "name": "{{name}}",
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        }
+      },
+      "template": "code --add-mcp {{vs|json|shell}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in the config file",
+        "pt": "Ou no arquivo de configuração"
+      },
+      "vars": {
+        "cfg": {
+          "servers": {
+            "{{name}}": {
+              "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+              "...": "{{entry}}"
+            }
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "format": "json",
+      "file": {
+        "macos": "~/Library/Application Support/Code/User/mcp.json",
+        "windows": "%APPDATA%\\Code\\User\\mcp.json",
+        "linux": "~/.config/Code/User/mcp.json"
+      },
+      "note": {
+        "en": "Uses `servers`, not `mcpServers`. Per project: `.vscode/mcp.json`.",
+        "pt": "Usa `servers`, e não `mcpServers`. Por projeto: `.vscode/mcp.json`."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://code.visualstudio.com/api/extension-guides/ai/mcp",
+      "checked": "2026-11-08",
+      "title": "MCP developer guide (install URLs)"
+    },
+    {
+      "url": "https://code.visualstudio.com/docs/agents/reference/mcp-configuration",
+      "checked": "2026-11-08",
+      "title": "MCP configuration reference"
+    },
+    {
+      "url": "https://code.visualstudio.com/docs/copilot/customization/mcp-servers",
+      "checked": "2026-11-08",
+      "title": "Use MCP servers in VS Code"
+    },
+    {
+      "url": "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-server-access",
+      "checked": "2026-11-08",
+      "title": "Configure MCP server access"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

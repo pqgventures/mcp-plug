@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema.json",
+  "id": "raycast",
+  "name": "Raycast",
+  "vendor": "Raycast",
+  "category": "desktop",
+  "color": "#ff6363",
+  "homepage": "https://raycast.com",
+  "docs": "https://manual.raycast.com/ai/model-context-protocol",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": true,
+    "headers": true
+  },
+  "plans": {
+    "en": "Raycast Pro. On Enterprise, admins can set servers for the organization.",
+    "pt": "Raycast Pro. No Enterprise, admins podem definir servidores para a organização."
+  },
+  "limits": [
+    {
+      "en": "No official one-click install link.",
+      "pt": "Não há link oficial de instalação de um clique."
+    },
+    {
+      "en": "The iOS app only supports remote (HTTP) servers.",
+      "pt": "O app de iOS só aceita servidores remotos (HTTP)."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "In Raycast",
+        "pt": "No Raycast"
+      },
+      "steps": [
+        {
+          "en": "Open Raycast and run **Install MCP Server**.",
+          "pt": "Abra o Raycast e rode **Install MCP Server**."
+        },
+        {
+          "en": "Name: **{{displayName}}**. {{#isRemote}}Transport: HTTP, URL: the server URL above.{{/isRemote}}{{^isRemote}}Command: `{{command}}`, arguments: `{{args|shell}}`.{{/isRemote}}",
+          "pt": "Nome: **{{displayName}}**. {{#isRemote}}Transporte: HTTP, URL: a URL do servidor acima.{{/isRemote}}{{^isRemote}}Comando: `{{command}}`, argumentos: `{{args|shell}}`.{{/isRemote}}"
+        },
+        {
+          "en": "Save, then mention it with **@{{name}}** in AI Chat.",
+          "pt": "Salve e chame com **@{{name}}** no AI Chat."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://manual.raycast.com/ai/model-context-protocol",
+      "checked": "2026-11-08",
+      "title": "Raycast manual: Model Context Protocol"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

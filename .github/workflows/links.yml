@@ -1,0 +1,41 @@
+name: Link check
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check every source, docs page and redirector
+        id: check
+        run: |
+          set +e
+          node scripts/check-links.mjs --json links.json > links.txt 2>&1
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          cat links.txt
+      - name: Open or update an issue when something broke
+        if: steps.check.outputs.code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "The weekly link check found URLs that stopped answering. A moved doc page usually means the client changed: re-check the entry, update it and set \`verified\`."
+            echo
+            echo '~~~'
+            grep -E '^(✗|!)' links.txt || true
+            echo '~~~'
+            echo
+            echo "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } > body.md
+          n=$(gh issue list --state open --search "Link check failed in:title" --json number -q '.[0].number')
+          if [ -n "$n" ]; then gh issue comment "$n" --body-file body.md; else gh issue create --title "Link check failed" --body-file body.md; fi

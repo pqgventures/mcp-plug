@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "id": "manus",
+  "name": "Manus",
+  "vendor": "Manus AI",
+  "category": "agent",
+  "color": "#2b2b2b",
+  "homepage": "https://manus.im",
+  "docs": "https://manus.im/docs/integrations/custom-mcp.md",
+  "openUrl": "https://manus.im/app?openConnectors=true",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Ready-made connectors on every plan; the plan for custom servers isn't stated.",
+    "pt": "Conectores prontos em todos os planos; o plano para servidores próprios não é informado."
+  },
+  "limits": [
+    {
+      "en": "Remote HTTPS servers only.",
+      "pt": "Só servidores remotos em HTTPS."
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "kind": "link",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "Open Manus connectors",
+        "pt": "Abrir conectores do Manus"
+      },
+      "template": "https://manus.im/app?openConnectors=true"
+    },
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "label": {
+        "en": "Then",
+        "pt": "Depois"
+      },
+      "steps": [
+        {
+          "en": "Go to **Settings → Integrations → Custom MCP Servers → Add Server**.",
+          "pt": "Vá em **Settings → Integrations → Custom MCP Servers → Add Server**."
+        },
+        {
+          "en": "Name: **{{displayName}}**. URL: the server URL above.{{#hasHeaders}} Authentication: the key the server needs.{{/hasHeaders}}",
+          "pt": "Nome: **{{displayName}}**. URL: a URL do servidor acima.{{#hasHeaders}} Autenticação: a chave que o servidor pede.{{/hasHeaders}}"
+        },
+        {
+          "en": "Save; Manus tests the connection and lists the tools.",
+          "pt": "Salve; o Manus testa a conexão e lista as ferramentas."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://manus.im/docs/integrations/custom-mcp.md",
+      "checked": "2026-11-08",
+      "title": "Manus: custom MCP servers"
+    },
+    {
+      "url": "https://manus.im/docs/integrations/connectors.md",
+      "checked": "2026-11-08",
+      "title": "Manus connectors"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema.json",
+  "id": "gemini-app",
+  "name": "Gemini",
+  "vendor": "Google",
+  "category": "chat",
+  "color": "#4285f4",
+  "homepage": "https://gemini.google.com",
+  "docs": "https://support.google.com/gemini/answer/17209137",
+  "openUrl": "https://gemini.google.com/apps",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": false,
+    "pkce": true,
+    "headers": null,
+    "note": {
+      "en": "The server must offer Dynamic Client Registration; CIMD-only servers fail.",
+      "pt": "O servidor precisa oferecer Dynamic Client Registration; servidores só com CIMD falham."
+    }
+  },
+  "plans": {
+    "en": "Personal Google accounts, 18+, in the US, in English, with Keep Activity on. Workspace has a separate path in Gemini Enterprise.",
+    "pt": "Contas Google pessoais, 18+, nos EUA, em inglês, com a Atividade ligada. O Workspace tem caminho próprio no Gemini Enterprise."
+  },
+  "limits": [
+    {
+      "en": "Custom apps are added on the web only; they then work on mobile.",
+      "pt": "Apps próprios só são adicionados na web; depois funcionam no celular."
+    },
+    {
+      "en": "Write actions always ask for confirmation.",
+      "pt": "Ações de escrita sempre pedem confirmação."
+    },
+    {
+      "en": "Builders can test at gemini.google.com/devmode before publishing through the Connected Apps platform.",
+      "pt": "Quem desenvolve pode testar em gemini.google.com/devmode antes de publicar pela plataforma Connected Apps."
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "kind": "link",
+      "transport": "http",
+      "primary": true,
+      "headers": false,
+      "label": {
+        "en": "Open Gemini connected apps",
+        "pt": "Abrir apps conectados do Gemini"
+      },
+      "template": "https://gemini.google.com/apps"
+    },
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "headers": false,
+      "label": {
+        "en": "Then",
+        "pt": "Depois"
+      },
+      "steps": [
+        {
+          "en": "Add a custom app and paste the server URL above.",
+          "pt": "Adicione um app personalizado e cole a URL do servidor acima."
+        },
+        {
+          "en": "Link your account, then type **@** and pick **{{displayName}}** in a chat.",
+          "pt": "Vincule sua conta e, numa conversa, digite **@** e escolha **{{displayName}}**."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://support.google.com/gemini/answer/17209137",
+      "checked": "2026-11-08",
+      "title": "Gemini Help: connected apps"
+    },
+    {
+      "url": "https://developers.google.com/connected-apps/mcp/dev-mode",
+      "checked": "2026-11-08",
+      "title": "Connected Apps: Developer Mode"
+    },
+    {
+      "url": "https://developers.google.com/connected-apps/mcp/oauth",
+      "checked": "2026-11-08",
+      "title": "Connected Apps: OAuth"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "Exact click path inferred; help article sections were collapsed when fetched."
+}

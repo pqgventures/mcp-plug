@@ -1,0 +1,46 @@
+{
+  "$schema": "../schema.json",
+  "id": "instinct",
+  "name": "Instinct",
+  "vendor": "Instinct",
+  "category": "agent",
+  "color": "#0ea5e9",
+  "homepage": "https://instinct.com",
+  "transports": {
+    "stdio": false,
+    "http": false,
+    "sse": false
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": null
+  },
+  "plans": {
+    "en": "Invite-only consumer agent on iMessage, WhatsApp and SMS.",
+    "pt": "Agente de consumo só por convite, no iMessage, WhatsApp e SMS."
+  },
+  "limits": [
+    {
+      "en": "No way to add your own MCP server, connector or API yet. Integrations are partners Instinct picks (Shopify, Stripe Link, 1Password, Duffel, Yelp).",
+      "pt": "Ainda não dá para adicionar servidor MCP, conector ou API próprios. As integrações são parceiros escolhidos pelo Instinct (Shopify, Stripe Link, 1Password, Duffel, Yelp)."
+    },
+    {
+      "en": "Today the way in is indirect: a page it can find and read on the open web, or Shopify agentic checkout.",
+      "pt": "Hoje o caminho é indireto: uma página que ele encontra e lê na web aberta, ou o checkout agêntico da Shopify."
+    }
+  ],
+  "methods": [],
+  "sources": [
+    {
+      "url": "https://instinct.com",
+      "checked": "2026-11-08",
+      "title": "Instinct"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "Based on PQG's Instinct reach research (2026-10-17..20); instinct.com has only home, terms and privacy."
+}

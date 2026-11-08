@@ -1,0 +1,120 @@
+{
+  "$schema": "../schema.json",
+  "id": "chatgpt",
+  "name": "ChatGPT",
+  "vendor": "OpenAI",
+  "category": "chat",
+  "color": "#0f0f0f",
+  "homepage": "https://chatgpt.com",
+  "docs": "https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt",
+  "openUrl": "https://chatgpt.com/plugins",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": false,
+    "note": {
+      "en": "OAuth 2.1 with DCR or CIMD and PKCE, or no auth. Ask for `offline_access` so people don't have to sign in again when the token expires.",
+      "pt": "OAuth 2.1 com DCR ou CIMD e PKCE, ou sem login. Peça `offline_access` para a pessoa não ter de entrar de novo quando o token vence."
+    }
+  },
+  "plans": {
+    "en": "Documented for Business, Enterprise and Edu on the web (admins and owners, or members with the plugin permission). Plus and Pro availability varies; check in your account.",
+    "pt": "Documentado para Business, Enterprise e Edu na web (admins e donos, ou membros com a permissão de plugins). Para Plus e Pro varia; confira na sua conta."
+  },
+  "limits": [
+    {
+      "en": "Remote only: a public HTTPS URL (or OpenAI's Secure MCP Tunnel for private servers).",
+      "pt": "Só remoto: uma URL HTTPS pública (ou o Secure MCP Tunnel da OpenAI para servidores privados)."
+    },
+    {
+      "en": "After you change tools on the server, open the plugin and click **Refresh**.",
+      "pt": "Depois de mudar as ferramentas no servidor, abra o plugin e clique em **Atualizar**."
+    },
+    {
+      "en": "Don't put a query string in the MCP URL: the connection fails (424).",
+      "pt": "Não coloque query string na URL do MCP: a conexão falha (424)."
+    },
+    {
+      "en": "Listing in the public directory means a plugin ZIP (plugin.json + mcp.json), test prompts, a demo video and review; digital goods can't be sold inside ChatGPT.",
+      "pt": "Entrar no diretório público pede um ZIP de plugin (plugin.json + mcp.json), prompts de teste, vídeo de demonstração e revisão; não dá para vender bens digitais dentro do ChatGPT."
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "kind": "link",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Open ChatGPT plugins",
+        "pt": "Abrir plugins do ChatGPT"
+      },
+      "template": "https://chatgpt.com/plugins"
+    },
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "headers": false,
+      "label": {
+        "en": "Then",
+        "pt": "Depois"
+      },
+      "steps": [
+        {
+          "en": "Click **+** → **Add custom MCP server**.",
+          "pt": "Clique em **+** → **Adicionar servidor MCP personalizado**."
+        },
+        {
+          "en": "Name: **{{displayName}}**. Connection: paste the server URL above.",
+          "pt": "Nome: **{{displayName}}**. Conexão: cole a URL do servidor acima."
+        },
+        {
+          "en": "Authentication: **{{#oauth}}OAuth{{/oauth}}{{^oauth}}None{{/oauth}}**. Confirm the risk notice and click **Create**.",
+          "pt": "Autenticação: **{{#oauth}}OAuth{{/oauth}}{{^oauth}}Nenhuma{{/oauth}}**. Confirme o aviso e clique em **Criar**."
+        },
+        {
+          "en": "In a new chat, type **@** and pick **{{displayName}}**.",
+          "pt": "Numa conversa nova, digite **@** e escolha **{{displayName}}**."
+        }
+      ],
+      "note": {
+        "en": "On older accounts the path is **Settings → Apps → Advanced → Developer mode → Create**.",
+        "pt": "Em contas antigas o caminho é **Configurações → Apps → Avançado → Modo desenvolvedor → Criar**."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt",
+      "checked": "2026-11-08",
+      "title": "Connecting custom MCP servers in ChatGPT"
+    },
+    {
+      "url": "https://developers.openai.com/plugins/deploy/connect-chatgpt",
+      "checked": "2026-11-08",
+      "title": "Connect a plugin to ChatGPT"
+    },
+    {
+      "url": "https://developers.openai.com/plugins/build/auth",
+      "checked": "2026-11-08",
+      "title": "Plugin authentication"
+    },
+    {
+      "url": "https://developers.openai.com/plugins/deploy/submission",
+      "checked": "2026-11-08",
+      "title": "Submit a plugin"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "2026: Apps/connectors became Plugins (chatgpt.com/plugins). No documented prefill parameters. Plus/Pro availability unverified."
+}

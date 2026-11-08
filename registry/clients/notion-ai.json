@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema.json",
+  "id": "notion-ai",
+  "name": "Notion AI",
+  "vendor": "Notion",
+  "category": "agent",
+  "color": "#191919",
+  "homepage": "https://www.notion.com/product/ai",
+  "docs": "https://www.notion.com/help/connect-mcp-servers-to-your-notion-agent",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": null,
+    "headers": true,
+    "note": {
+      "en": "OAuth servers must support DCR; otherwise use a static key.",
+      "pt": "Servidores OAuth precisam aceitar DCR; senão, use uma chave fixa."
+    }
+  },
+  "plans": {
+    "en": "Business and Enterprise. An admin must turn on **Enable custom MCP servers**.",
+    "pt": "Business e Enterprise. Um admin precisa ligar **Enable custom MCP servers**."
+  },
+  "limits": [
+    {
+      "en": "Not available on mobile.",
+      "pt": "Não funciona no celular."
+    },
+    {
+      "en": "Each Custom Agent needs its own connection; Notion Agent connections aren't shared with them.",
+      "pt": "Cada Custom Agent precisa da própria conexão; as do Notion Agent não são compartilhadas."
+    },
+    {
+      "en": "With about 10 or more servers connected, answers slow down.",
+      "pt": "Com uns 10 servidores ou mais, as respostas ficam lentas."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "In Notion",
+        "pt": "No Notion"
+      },
+      "steps": [
+        {
+          "en": "Open **Settings → Connections → Discover → Add Custom MCP**.",
+          "pt": "Abra **Configurações → Conexões → Descobrir → Add Custom MCP**."
+        },
+        {
+          "en": "Paste the server URL above, name it **{{displayName}}** and sign in.",
+          "pt": "Cole a URL do servidor acima, dê o nome **{{displayName}}** e entre na sua conta."
+        },
+        {
+          "en": "For a Custom Agent: **Settings → Tools & Access → Add connection → Custom MCP server**.",
+          "pt": "Para um Custom Agent: **Settings → Tools & Access → Add connection → Custom MCP server**."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.notion.com/help/connect-mcp-servers-to-your-notion-agent",
+      "checked": "2026-11-08",
+      "title": "Connect MCP servers to your Notion Agent"
+    },
+    {
+      "url": "https://www.notion.com/help/mcp-connections-for-custom-agents",
+      "checked": "2026-11-08",
+      "title": "MCP connections for Custom Agents"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

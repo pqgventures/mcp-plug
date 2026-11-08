@@ -1,0 +1,93 @@
+{
+  "$schema": "../schema.json",
+  "id": "augment",
+  "name": "Augment Code",
+  "vendor": "Augment",
+  "category": "ide",
+  "color": "#141414",
+  "homepage": "https://www.augmentcode.com",
+  "docs": "https://docs.augmentcode.com/setup-augment/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Not stated.",
+    "pt": "Não informado."
+  },
+  "limits": [
+    {
+      "en": "The IDE extensions keep servers in their Settings panel (**+ Add remote MCP** or **Import from JSON**); the file below is the Auggie CLI's.",
+      "pt": "As extensões de IDE guardam os servidores no painel Settings (**+ Add remote MCP** ou **Import from JSON**); o arquivo abaixo é o do Auggie CLI."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Auggie CLI",
+        "pt": "Auggie CLI"
+      },
+      "template": "auggie mcp add-json {{name|shell}} {{e|json|shell}}",
+      "vars": {
+        "e": {
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        }
+      }
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "JSON to import, or ~/.augment/settings.json",
+        "pt": "JSON para importar, ou ~/.augment/settings.json"
+      },
+      "format": "json",
+      "vars": {
+        "e": {
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{e}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.augment/settings.json",
+        "windows": "%USERPROFILE%\\.augment\\settings.json",
+        "linux": "~/.augment/settings.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.augmentcode.com/setup-augment/mcp",
+      "checked": "2026-11-08",
+      "title": "Augment: MCP"
+    },
+    {
+      "url": "https://docs.augmentcode.com/cli/integrations",
+      "checked": "2026-11-08",
+      "title": "Auggie CLI integrations",
+      "quote": "auggie mcp add-json <name> <json>"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

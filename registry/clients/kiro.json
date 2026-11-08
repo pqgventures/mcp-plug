@@ -1,0 +1,85 @@
+{
+  "$schema": "../schema.json",
+  "id": "kiro",
+  "name": "Kiro",
+  "vendor": "AWS",
+  "category": "ide",
+  "color": "#7b42f6",
+  "homepage": "https://kiro.dev",
+  "docs": "https://kiro.dev/docs/mcp/configuration/",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "CIMD is opt-in per server with `oauth.clientMetadataUrl`. The IDE can't use OAuth clients that need a secret; the CLI can.",
+      "pt": "CIMD é opcional por servidor com `oauth.clientMetadataUrl`. A IDE não usa clientes OAuth que exigem segredo; o CLI usa."
+    }
+  },
+  "plans": {
+    "en": "IDE, CLI and web; no plan restriction found. Enterprise has an MCP registry for governance.",
+    "pt": "IDE, CLI e web; sem restrição de plano encontrada. O Enterprise tem um registro de MCP para governança."
+  },
+  "limits": [
+    {
+      "en": "Turn on the **MCP support** setting first.",
+      "pt": "Ligue antes a opção **MCP support**."
+    },
+    {
+      "en": "Same file and format as the old Amazon Q Developer.",
+      "pt": "Mesmo arquivo e formato do antigo Amazon Q Developer."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to Kiro's mcp.json",
+        "pt": "Coloque no mcp.json do Kiro"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.kiro/settings/mcp.json",
+        "windows": "%USERPROFILE%\\.kiro\\settings\\mcp.json",
+        "linux": "~/.kiro/settings/mcp.json"
+      },
+      "note": {
+        "en": "Open it with **Kiro: Open user MCP config (JSON)**. Per project: `.kiro/settings/mcp.json`.",
+        "pt": "Abra com **Kiro: Open user MCP config (JSON)**. Por projeto: `.kiro/settings/mcp.json`."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://kiro.dev/docs/mcp/",
+      "checked": "2026-11-08",
+      "title": "Kiro: MCP"
+    },
+    {
+      "url": "https://kiro.dev/docs/mcp/configuration/",
+      "checked": "2026-11-08",
+      "title": "Kiro: MCP configuration"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "A kiro:// install link exists but its format isn't documented."
+}

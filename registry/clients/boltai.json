@@ -1,0 +1,90 @@
+{
+  "$schema": "../schema.json",
+  "id": "boltai",
+  "name": "BoltAI",
+  "vendor": "BoltAI",
+  "category": "desktop",
+  "color": "#f59e0b",
+  "homepage": "https://boltai.com",
+  "docs": "https://docs.boltai.com/docs/plugins/mcp-servers.md",
+  "transports": {
+    "stdio": true,
+    "http": null,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": null
+  },
+  "plans": {
+    "en": "MCP since Mac app 1.34; plan not stated.",
+    "pt": "MCP desde o app de Mac 1.34; plano não informado."
+  },
+  "limits": [
+    {
+      "en": "The Mac app runs local servers; the iOS app only remote ones.",
+      "pt": "O app de Mac roda servidores locais; o de iOS, só remotos."
+    },
+    {
+      "en": "The Mac config doesn't sync between devices.",
+      "pt": "A configuração do Mac não sincroniza entre aparelhos."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Settings → Plugins → + (Mac)",
+        "pt": "Settings → Plugins → + (Mac)"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "note": {
+        "en": "Or **… → Import from Cursor / Claude** if you already set it up there.",
+        "pt": "Ou **… → Import from Cursor / Claude** se você já configurou lá."
+      }
+    },
+    {
+      "id": "ios",
+      "kind": "steps",
+      "transport": "http",
+      "label": {
+        "en": "iPhone and iPad",
+        "pt": "iPhone e iPad"
+      },
+      "steps": [
+        {
+          "en": "**Settings → MCP Servers → Add**, enter **{{displayName}}** and the server URL above, tap **Add Server**.",
+          "pt": "**Settings → MCP Servers → Add**, coloque **{{displayName}}** e a URL do servidor acima, toque em **Add Server**."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.boltai.com/docs/plugins/mcp-servers.md",
+      "checked": "2026-11-08",
+      "title": "BoltAI: MCP servers"
+    },
+    {
+      "url": "https://docs.boltai.com/docs/boltai-mobile/mcp-servers.md",
+      "checked": "2026-11-08",
+      "title": "BoltAI mobile: MCP servers"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "low"
+}

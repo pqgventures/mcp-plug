@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mcp-plug — install your MCP server in every AI app</title>
+<meta name="description" content="One registry of how to add an MCP server, connector or plugin to Claude, ChatGPT, Cursor, VS Code, Codex, Gemini and 25+ other AI apps, with a zero-dependency install widget, README badges and a CLI.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316181d'/%3E%3Cpath d='M11 8v6M21 8v6M8 14h16v3a8 8 0 0 1-16 0zM16 25v3' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="mcp-plug">
+<meta property="og:description" content="Install your MCP server in every AI app: Claude, ChatGPT, Cursor, VS Code, Codex, Gemini and more.">
+<script type="module" src="./mcp-plug.js"></script>
+<style>
+:root{--bg:#fafaf9;--fg:#16181d;--muted:#5f6673;--line:#e6e7ea;--card:#fff;--soft:#f2f3f5;--accent:#2f6df6;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--fg);background:var(--bg)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--fg:#eceef2;--muted:#9aa1ad;--line:#262a33;--card:#15171c;--soft:#1d2027;--accent:#6b9bff}}
+*{box-sizing:border-box}
+body{margin:0;line-height:1.5;font-size:16px}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand svg{width:28px;height:28px}
+.nav{display:flex;gap:6px;align-items:center}
+.pill{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.pill[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.hero{padding:28px 0 18px}
+.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-.025em;margin:0 0 12px;max-width:16ch}
+.hero p{color:var(--muted);font-size:18px;max-width:60ch;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:20px;align-items:start;margin:26px 0}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.card h2{font-size:15px;margin:0 0 12px;letter-spacing:-.005em}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}
+input[type=text],input[type=url],select,textarea{width:100%;font:inherit;font-size:15px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px;min-height:42px}
+textarea{font-family:ui-monospace,Menlo,monospace;font-size:13px;min-height:64px;resize:vertical}
+.seg{display:flex;gap:4px;background:var(--soft);padding:3px;border-radius:10px}
+.seg button{flex:1;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;padding:7px 8px;border-radius:8px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed=true]{background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:13px;cursor:pointer;user-select:none;background:var(--card);min-height:32px;display:inline-flex;align-items:center}
+.chip[aria-pressed=true]{border-color:var(--fg);background:var(--fg);color:var(--bg)}
+.row{display:flex;gap:10px;align-items:center}
+.row>*{flex:1}
+.out{display:grid;gap:20px;min-width:0}
+pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;white-space:pre-wrap;word-break:break-all}
+.copyrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.copyrow h2{margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.badges img{height:28px}
+section.table{margin:34px 0}
+section.table h2{font-size:22px;letter-spacing:-.015em;margin:0 0 6px}
+section.table p{color:var(--muted);margin:0 0 14px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:760px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td.y{color:#15803d}td.n{color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <a class="brand" href="./"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M11 8v6M21 8v6M8 14h16v3a8 8 0 0 1-16 0zM16 25v3" stroke="var(--bg)" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>mcp-plug</a>
+  <nav class="nav">
+    <button class="pill" data-lang="en" aria-pressed="true">EN</button>
+    <button class="pill" data-lang="pt" aria-pressed="false">PT</button>
+    <a class="pill" href="https://github.com/pqgventures/mcp-plug">GitHub</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-t="h1">Install your MCP server in every AI app</h1>
+  <p data-t="lead">One open registry of how Claude, ChatGPT, Cursor, VS Code, Codex, Gemini and 25+ other apps add an MCP server, with sources. Drop one tag on your install page, or put badges in your README.</p>
+</section>
+
+<div class="grid">
+  <div class="card" id="form">
+    <h2 data-t="your">Your server</h2>
+    <div class="seg" role="group" aria-label="Server type">
+      <button id="t-remote" aria-pressed="true" data-t="remote">Remote URL</button>
+      <button id="t-local" aria-pressed="false" data-t="local">Local command</button>
+    </div>
+    <label for="f-name" data-t="name">Name</label>
+    <input id="f-name" type="text" value="fluxo" autocomplete="off" spellcheck="false">
+    <label for="f-display" data-t="display">Display name</label>
+    <input id="f-display" type="text" value="Fluxo" autocomplete="off">
+    <div id="remote-fields">
+      <label for="f-url" data-t="url">MCP URL</label>
+      <input id="f-url" type="url" value="https://fluxo-production-28ce.up.railway.app/mcp" spellcheck="false">
+      <label for="f-auth" data-t="auth">Sign-in</label>
+      <select id="f-auth"><option value="oauth">OAuth</option><option value="none" data-t="none">None</option><option value="headers" data-t="hdr">API key header</option></select>
+      <div id="hdr-field" hidden><label for="f-header" data-t="header">Header</label><input id="f-header" type="text" value="Authorization: Bearer YOUR_KEY" spellcheck="false"></div>
+    </div>
+    <div id="local-fields" hidden>
+      <label for="f-cmd" data-t="cmd">Command</label>
+      <input id="f-cmd" type="text" value="npx -y @modelcontextprotocol/server-everything" spellcheck="false">
+    </div>
+    <label data-t="apps">Apps and order</label>
+    <div class="chips" id="chips"></div>
+    <div class="row">
+      <div><label for="f-lang" data-t="lang">Widget language</label><select id="f-lang"><option value="en">English</option><option value="pt">Português</option></select></div>
+      <div><label for="f-theme" data-t="theme">Theme</label><select id="f-theme"><option value="auto">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
+    </div>
+    <label for="f-accent" data-t="accent">Accent colour</label>
+    <input id="f-accent" type="text" value="#2f6df6" spellcheck="false">
+  </div>
+
+  <div class="out">
+    <mcp-plug id="preview"></mcp-plug>
+    <div class="card">
+      <div class="copyrow"><h2 data-t="embed">Put it on your page</h2><button class="pill" data-copy="embed" data-t="copy">Copy</button></div>
+      <pre id="embed"></pre>
+    </div>
+    <div class="card">
+      <div class="copyrow"><h2 data-t="badgesT">README badges</h2><button class="pill" data-copy="badges-md" data-t="copy">Copy</button></div>
+      <div class="badges" id="badges"></div>
+      <pre id="badges-md"></pre>
+    </div>
+    <div class="card">
+      <div class="copyrow"><h2 data-t="cliT">From the terminal</h2><button class="pill" data-copy="cli" data-t="copy">Copy</button></div>
+      <pre id="cli"></pre>
+    </div>
+  </div>
+</div>
+
+<section class="table">
+  <h2 data-t="tableT">Every app, side by side</h2>
+  <p data-t="tableP">What each app accepts today. Checked against official docs; each entry in the registry links its sources.</p>
+  <div class="tbl"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+</section>
+
+<footer>
+  <span data-t="foot">MIT licensed. Made by PQG Ventures. Something out of date?</span>
+  <a href="https://github.com/pqgventures/mcp-plug/issues/new" data-t="issue">Open an issue</a>.
+</footer>
+</div>
+
+<script type="module">
+const T = {
+  en: { h1:'Install your MCP server in every AI app', lead:'One open registry of how Claude, ChatGPT, Cursor, VS Code, Codex, Gemini and 25+ other apps add an MCP server, with sources. Drop one tag on your install page, or put badges in your README.',
+    your:'Your server', remote:'Remote URL', local:'Local command', name:'Name', display:'Display name', url:'MCP URL', auth:'Sign-in', none:'None', hdr:'API key header', header:'Header', cmd:'Command', apps:'Apps and order', lang:'Widget language', theme:'Theme', accent:'Accent colour',
+    embed:'Put it on your page', copy:'Copy', copied:'Copied', badgesT:'README badges', cliT:'From the terminal', tableT:'Every app, side by side', tableP:'What each app accepts today. Checked against official docs; each entry in the registry links its sources.',
+    foot:'MIT licensed. Made by PQG Ventures. Something out of date?', issue:'Open an issue',
+    th:['App','One click','Remote (HTTP)','Local (stdio)','OAuth','Plans','Checked'], yes:'yes', no:'no', unk:'?' },
+  pt: { h1:'Instale seu servidor MCP em todo app de IA', lead:'Um registro aberto de como Claude, ChatGPT, Cursor, VS Code, Codex, Gemini e mais 25 apps adicionam um servidor MCP, com as fontes. Coloque uma tag na sua página de instalação ou badges no README.',
+    your:'Seu servidor', remote:'URL remota', local:'Comando local', name:'Nome', display:'Nome de exibição', url:'URL do MCP', auth:'Login', none:'Nenhum', hdr:'Cabeçalho com chave', header:'Cabeçalho', cmd:'Comando', apps:'Apps e ordem', lang:'Idioma do componente', theme:'Tema', accent:'Cor de destaque',
+    embed:'Coloque na sua página', copy:'Copiar', copied:'Copiado', badgesT:'Badges para o README', cliT:'Pelo terminal', tableT:'Todos os apps lado a lado', tableP:'O que cada app aceita hoje. Conferido na documentação oficial; cada entrada do registro traz as fontes.',
+    foot:'Licença MIT. Feito pela PQG Ventures. Algo desatualizado?', issue:'Abra uma issue',
+    th:['App','Um clique','Remoto (HTTP)','Local (stdio)','OAuth','Planos','Conferido'], yes:'sim', no:'não', unk:'?' },
+};
+const $ = (id) => document.getElementById(id);
+const { REGISTRY, badges, plan } = await import('./mcp-plug.js');
+let ui = /^pt/i.test(navigator.language) ? 'pt' : 'en';
+let mode = 'remote';
+const selected = [...REGISTRY.order];
+const allIds = REGISTRY.all;
+const byId = Object.fromEntries(REGISTRY.clients.map((c) => [c.id, c]));
+
+function chips() {
+  const order = [...selected, ...allIds.filter((id) => !selected.includes(id))];
+  $('chips').innerHTML = order.map((id) => '<span class="chip" role="button" tabindex="0" data-id="' + id + '" aria-pressed="' + selected.includes(id) + '">' + byId[id].name + '</span>').join('');
+}
+$('chips').addEventListener('click', (e) => {
+  const id = e.target.closest('.chip')?.dataset.id; if (!id) return;
+  const i = selected.indexOf(id);
+  if (i >= 0) { if (selected.length > 1) selected.splice(i, 1); } else selected.push(id);
+  chips(); update();
+});
+$('chips').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.target.click(); } });
+
+function server() {
+  const s = { name: $('f-name').value.trim() || 'my-server', displayName: $('f-display').value.trim() || undefined };
+  if (mode === 'remote') {
+    s.url = $('f-url').value.trim();
+    const a = $('f-auth').value;
+    if (a === 'oauth') s.auth = 'oauth';
+    if (a === 'headers') { const h = $('f-header').value; const k = h.indexOf(':'); if (k > 0) s.headers = { [h.slice(0, k).trim()]: h.slice(k + 1).trim() }; }
+  } else s.command = $('f-cmd').value.trim();
+  return s;
+}
+const escAttr = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+function update() {
+  const s = server();
+  const p = $('preview');
+  p.setAttribute('theme', $('f-theme').value);
+  p.style.setProperty('--mp-accent', $('f-accent').value || '#2f6df6');
+  p.config = { ...s, lang: $('f-lang').value, clients: selected };
+  const attrs = [['name', s.name], ['display-name', s.displayName], ['url', s.url], ['command', s.command], ['auth', s.auth], ['headers', s.headers && JSON.stringify(s.headers)], ['lang', $('f-lang').value], ['clients', selected.join(',')]]
+    .filter(([, v]) => v).map(([k, v]) => '\n  ' + k + '="' + escAttr(v) + '"').join('');
+  const accent = $('f-accent').value && $('f-accent').value !== '#2f6df6' ? '\n<style>mcp-plug{--mp-accent:' + $('f-accent').value + '}</style>' : '';
+  $('embed').textContent = '<script type="module" src="https://pqgventures.github.io/mcp-plug/mcp-plug.js"><\/script>\n<mcp-plug' + attrs + '\n></mcp-plug>' + accent;
+  let b = [];
+  try { b = badges(REGISTRY, s, { clients: selected, lang: $('f-lang').value }); } catch {}
+  $('badges').innerHTML = b.map((x) => '<a href="' + escAttr(x.href) + '"><img src="./badges/' + x.client + '.svg" alt="' + escAttr(x.alt) + '"></a>').join('');
+  $('badges-md').textContent = b.map((x) => x.markdown).join('\n') || '—';
+  const q = (v) => (/^[\w\/.:@%+=,-]+$/.test(v) ? v : "'" + v.replace(/'/g, "'\\''") + "'");
+  $('cli').textContent = 'npx github:pqgventures/mcp-plug ' + (s.url ? q(s.url) + ' --name ' + q(s.name) + (s.auth === 'oauth' ? ' --auth oauth' : '') + (s.headers ? Object.entries(s.headers).map(([k, v]) => ' --header ' + q(k + ': ' + v)).join('') : '') : '--name ' + q(s.name) + ' -- ' + s.command) + ' --client ' + selected.join(',');
+}
+function table() {
+  const t = T[ui];
+  $('tbl').querySelector('thead').innerHTML = '<tr>' + t.th.map((h) => '<th>' + h + '</th>').join('') + '</tr>';
+  const yn = (v) => (v === true ? '<td class="y">' + t.yes + '</td>' : v === false ? '<td class="n">' + t.no + '</td>' : '<td class="n">' + t.unk + '</td>');
+  $('tbl').querySelector('tbody').innerHTML = allIds.map((id) => {
+    const c = byId[id];
+    const one = c.methods.some((m) => m.kind === 'link' && !/settings|plugins$|apps$|openConnectors/.test(m.template));
+    const oauth = c.auth.oauth ? [c.auth.dcr ? 'DCR' : null, c.auth.cimd ? 'CIMD' : null].filter(Boolean).join(' · ') || t.yes : null;
+    return '<tr><td><span class="dot" style="background:' + (c.color || '#888') + '"></span><a href="' + (c.docs || c.homepage) + '">' + c.name + '</a></td>' + yn(one) + yn(c.transports.http) + yn(c.transports.stdio)
+      + (oauth ? '<td class="y">' + oauth + '</td>' : yn(c.auth.oauth)) + '<td>' + (c.plans[ui] || '') + '</td><td class="n">' + c.verified + '</td></tr>';
+  }).join('');
+}
+function i18n() {
+  document.documentElement.lang = ui === 'pt' ? 'pt-BR' : 'en';
+  document.querySelectorAll('[data-t]').forEach((el) => { const v = T[ui][el.dataset.t]; if (typeof v === 'string') el.textContent = v; });
+  document.querySelectorAll('[data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === ui)));
+  table();
+}
+document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => { ui = b.dataset.lang; $('f-lang').value = ui; i18n(); update(); }));
+$('t-remote').onclick = () => { mode = 'remote'; $('t-remote').setAttribute('aria-pressed', 'true'); $('t-local').setAttribute('aria-pressed', 'false'); $('remote-fields').hidden = false; $('local-fields').hidden = true; update(); };
+$('t-local').onclick = () => { mode = 'local'; $('t-local').setAttribute('aria-pressed', 'true'); $('t-remote').setAttribute('aria-pressed', 'false'); $('remote-fields').hidden = true; $('local-fields').hidden = false; update(); };
+$('f-auth').onchange = () => { $('hdr-field').hidden = $('f-auth').value !== 'headers'; update(); };
+for (const id of ['f-name', 'f-display', 'f-url', 'f-header', 'f-cmd', 'f-lang', 'f-theme', 'f-accent']) $(id).addEventListener('input', update);
+document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+  await navigator.clipboard.writeText($(b.dataset.copy).textContent).catch(() => {});
+  b.textContent = T[ui].copied; setTimeout(() => (b.textContent = T[ui].copy), 1500);
+}));
+$('f-lang').value = ui;
+chips(); i18n(); update();
+</script>
+</body>
+</html>
+

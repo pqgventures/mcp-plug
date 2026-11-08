@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "id": "roo-code",
+  "name": "Roo Code",
+  "vendor": "Roo Code",
+  "category": "ide",
+  "color": "#2f7d32",
+  "homepage": "https://roocode.com",
+  "docs": "https://docs.roocode.com/features/mcp/using-mcp-in-roo",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Open source; no plan restriction.",
+    "pt": "Open source; sem restrição de plano."
+  },
+  "limits": [
+    {
+      "en": "URL servers need an explicit `type`: `streamable-http` (with a hyphen) or `sse`.",
+      "pt": "Servidores por URL precisam de `type` explícito: `streamable-http` (com hífen) ou `sse`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to Roo's MCP settings",
+        "pt": "Coloque nas configurações de MCP do Roo"
+      },
+      "format": "json",
+      "vars": {
+        "e": {
+          "type": "{{#isRemote}}{{#sse}}sse{{/sse}}{{^sse}}streamable-http{{/sse}}{{/isRemote}}",
+          "...": "{{entry}}"
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{e}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/Library/Application Support/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json",
+        "windows": "%APPDATA%\\Code\\User\\globalStorage\\rooveterinaryinc.roo-cline\\settings\\mcp_settings.json",
+        "linux": "~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json"
+      },
+      "note": {
+        "en": "Open it from the MCP icon → **Edit Global MCP**. Per project: `.roo/mcp.json`.",
+        "pt": "Abra pelo ícone de MCP → **Edit Global MCP**. Por projeto: `.roo/mcp.json`."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.roocode.com/features/mcp/using-mcp-in-roo",
+      "checked": "2026-11-08",
+      "title": "Using MCP in Roo Code"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

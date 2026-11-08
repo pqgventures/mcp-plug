@@ -1,0 +1,129 @@
+{
+  "$schema": "../schema.json",
+  "id": "windsurf",
+  "name": "Windsurf",
+  "vendor": "Cognition",
+  "category": "ide",
+  "color": "#0b8f6b",
+  "homepage": "https://windsurf.com",
+  "docs": "https://docs.devin.ai/desktop/cascade/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": null,
+    "headers": true,
+    "note": {
+      "en": "OAuth with `devin mcp login <name>` or the Authenticate button; pre-registered clients via `oauthClientId`.",
+      "pt": "OAuth com `devin mcp login <nome>` ou o botão Authenticate; clientes pré-registrados com `oauthClientId`."
+    }
+  },
+  "plans": {
+    "en": "Not restricted by plan in the docs; Enterprise admins keep an MCP allowlist and registries.",
+    "pt": "A documentação não restringe por plano; admins Enterprise mantêm lista permitida e registros de MCP."
+  },
+  "limits": [
+    {
+      "en": "2026: Windsurf's agent now shares the Devin harness, so the config moved to `~/.config/devin/mcp_config.json` (key `url`). Older installs read `~/.codeium/windsurf/mcp_config.json` with `serverUrl`.",
+      "pt": "2026: o agente do Windsurf passou a usar o motor do Devin, e a configuração foi para `~/.config/devin/mcp_config.json` (chave `url`). Instalações antigas leem `~/.codeium/windsurf/mcp_config.json` com `serverUrl`."
+    },
+    {
+      "en": "Tool calls ask for approval by default.",
+      "pt": "Chamadas de ferramenta pedem aprovação por padrão."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal (Devin CLI)",
+        "pt": "Rode no terminal (Devin CLI)"
+      },
+      "template": "{{#isRemote}}devin mcp add -s user {{name|shell}} {{url|shell}}{{#oauth}}\ndevin mcp login {{name|shell}}{{/oauth}}{{/isRemote}}{{^isRemote}}devin mcp add -s user {{name|shell}} -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}{{/isRemote}}",
+      "headers": false
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in the config file",
+        "pt": "Ou no arquivo de configuração"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.config/devin/mcp_config.json",
+        "windows": "%APPDATA%\\devin\\mcp_config.json",
+        "linux": "~/.config/devin/mcp_config.json"
+      },
+      "note": {
+        "en": "Then refresh in **Customize → MCPs**.",
+        "pt": "Depois atualize em **Customize → MCPs**."
+      }
+    },
+    {
+      "id": "legacy",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Older Windsurf versions",
+        "pt": "Versões antigas do Windsurf"
+      },
+      "format": "json",
+      "vars": {
+        "w": {
+          "serverUrl": "{{#isRemote}}{{url}}{{/isRemote}}",
+          "headers": "{{headers}}",
+          "...": "{{localEntry}}"
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{w}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.codeium/windsurf/mcp_config.json",
+        "windows": "%USERPROFILE%\\.codeium\\windsurf\\mcp_config.json",
+        "linux": "~/.codeium/windsurf/mcp_config.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.devin.ai/desktop/cascade/mcp",
+      "checked": "2026-11-08",
+      "title": "Devin Local customizations (Windsurf Cascade MCP)"
+    },
+    {
+      "url": "https://docs.devin.ai/cli/extensibility/mcp/configuration",
+      "checked": "2026-11-08",
+      "title": "Devin CLI MCP configuration"
+    },
+    {
+      "url": "https://docs.devin.ai/cli/reference/configuration/read-config-from",
+      "checked": "2026-11-08",
+      "title": "Config import sources"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "docs.windsurf.com/windsurf/cascade/mcp 308-redirects to docs.devin.ai. No install deeplink documented."
+}

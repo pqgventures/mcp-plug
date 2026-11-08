@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema.json",
+  "id": "amazon-q",
+  "name": "Amazon Q Developer",
+  "vendor": "AWS",
+  "category": "ide",
+  "color": "#232f3e",
+  "homepage": "https://aws.amazon.com/q/developer/",
+  "docs": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/mcp-ide.html",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Not stated. AWS now points people to Kiro.",
+    "pt": "Não informado. A AWS agora indica o Kiro."
+  },
+  "limits": [
+    {
+      "en": "Being replaced by Kiro; new features land in Kiro first.",
+      "pt": "Está sendo substituído pelo Kiro; novidades chegam primeiro no Kiro."
+    },
+    {
+      "en": "The workspace config wins over the global one.",
+      "pt": "A configuração do projeto vale mais que a global."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to mcp.json",
+        "pt": "Coloque no mcp.json"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.aws/amazonq/mcp.json",
+        "windows": "%USERPROFILE%\\.aws\\amazonq\\mcp.json",
+        "linux": "~/.aws/amazonq/mcp.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/mcp-ide.html",
+      "checked": "2026-11-08",
+      "title": "Amazon Q Developer: MCP in the IDE"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "low"
+}

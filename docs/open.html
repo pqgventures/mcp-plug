@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Opening your app… · mcp-plug</title><meta name="robots" content="noindex">
+<style>body{font-family:system-ui,sans-serif;max-width:520px;margin:12vh auto;padding:0 20px;line-height:1.5;color:#16181d}a.btn{display:inline-block;background:#16181d;color:#fff;padding:11px 16px;border-radius:10px;text-decoration:none;font-weight:600}p{color:#5f6673}code{word-break:break-all;font-size:12px}</style></head>
+<body><h1 id="h">Opening your app…</h1><p id="p">If nothing happens, click the button. The app must be installed on this computer.</p>
+<p><a class="btn" id="go" href="#">Open</a></p><p><code id="u"></code></p>
+<script>
+// Forwards README badge clicks to app schemes (cursor://, vscode:, goose://…), which GitHub strips from links.
+(async () => {
+  const to = new URLSearchParams(location.search).get('to') || '';
+  let allowed = [];
+  try { allowed = await (await fetch('./open-schemes.json')).json(); } catch (e) {}
+  const ok = to && allowed.some((p) => to.startsWith(p));
+  const pt = /^pt/i.test(navigator.language);
+  if (pt) { document.getElementById('h').textContent = 'Abrindo o app…'; document.getElementById('p').textContent = 'Se nada acontecer, clique no botão. O app precisa estar instalado neste computador.'; document.getElementById('go').textContent = 'Abrir'; }
+  if (!ok) { document.getElementById('h').textContent = pt ? 'Link inválido' : 'Invalid link'; document.getElementById('go').remove(); return; }
+  document.getElementById('go').href = to;
+  document.getElementById('u').textContent = to.length > 300 ? to.slice(0, 300) + '…' : to;
+  location.href = to;
+})();
+</script></body></html>
+

@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "id": "le-chat",
+  "name": "Le Chat",
+  "vendor": "Mistral AI",
+  "category": "chat",
+  "color": "#fa520f",
+  "homepage": "https://chat.mistral.ai",
+  "docs": "https://docs.mistral.ai/vibe/work/connectors/mcp-connectors",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Admins add connectors. On Free, Pro and Student the account owner is the admin; on Team and Enterprise an organization admin adds them.",
+    "pt": "Quem adiciona conectores é o admin. No Free, Pro e Student o dono da conta é o admin; em Team e Enterprise, um admin da organização."
+  },
+  "limits": [
+    {
+      "en": "Remote only, HTTPS with a valid certificate.",
+      "pt": "Só remoto, HTTPS com certificado válido."
+    },
+    {
+      "en": "Custom connectors don't pick up tool list changes, resources or prompts yet.",
+      "pt": "Conectores próprios ainda não pegam mudanças na lista de ferramentas, resources nem prompts."
+    },
+    {
+      "en": "2026: Mistral documents the assistant as **Work** (chat.mistral.ai/work).",
+      "pt": "2026: a Mistral documenta o assistente como **Work** (chat.mistral.ai/work)."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "In Le Chat",
+        "pt": "No Le Chat"
+      },
+      "steps": [
+        {
+          "en": "Open **Connectors → + Add Connector → Custom MCP Connector**.",
+          "pt": "Abra **Conectores → + Adicionar conector → Custom MCP Connector**."
+        },
+        {
+          "en": "Name: **{{name|slug}}** (no spaces). Server URL: the URL above.",
+          "pt": "Nome: **{{name|slug}}** (sem espaços). URL do servidor: a URL acima."
+        },
+        {
+          "en": "Click **Connect**{{#oauth}} and sign in{{/oauth}}.",
+          "pt": "Clique em **Conectar**{{#oauth}} e entre na sua conta{{/oauth}}."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.mistral.ai/vibe/work/connectors/mcp-connectors",
+      "checked": "2026-11-08",
+      "title": "Mistral Work: MCP connectors"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

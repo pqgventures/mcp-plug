@@ -1,0 +1,81 @@
+{
+  "$schema": "../schema.json",
+  "id": "copilot-studio",
+  "name": "Copilot Studio",
+  "vendor": "Microsoft",
+  "category": "agent",
+  "color": "#0f6cbd",
+  "homepage": "https://copilotstudio.microsoft.com",
+  "docs": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent",
+  "openUrl": "https://copilotstudio.microsoft.com",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": false
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Copilot Studio license (or Microsoft 365 Copilot / pay-as-you-go) and an agent with generative orchestration on. Power Platform data policies apply.",
+    "pt": "Licença do Copilot Studio (ou Microsoft 365 Copilot / pré-pago) e um agente com orquestração generativa ligada. Valem as políticas de dados do Power Platform."
+  },
+  "limits": [
+    {
+      "en": "Streamable HTTP only (no SSE since August 2025).",
+      "pt": "Só Streamable HTTP (sem SSE desde agosto de 2025)."
+    },
+    {
+      "en": "Uses MCP tools and resources, not prompts.",
+      "pt": "Usa ferramentas e resources do MCP, não prompts."
+    },
+    {
+      "en": "The consumer Microsoft Copilot app has no documented way to add custom MCP servers.",
+      "pt": "O app Microsoft Copilot para consumidor não tem jeito documentado de adicionar MCP próprio."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "In Copilot Studio",
+        "pt": "No Copilot Studio"
+      },
+      "steps": [
+        {
+          "en": "Open your agent → **Tools → Add a tool → New tool → Model Context Protocol**.",
+          "pt": "Abra o agente → **Tools → Add a tool → New tool → Model Context Protocol**."
+        },
+        {
+          "en": "Server name: **{{displayName}}**, a short description (the orchestrator reads it) and the server URL above.",
+          "pt": "Server name: **{{displayName}}**, uma descrição curta (o orquestrador lê) e a URL do servidor acima."
+        },
+        {
+          "en": "Authentication: **{{#oauth}}OAuth 2.0{{/oauth}}{{^oauth}}{{#hasHeaders}}API key{{/hasHeaders}}{{^hasHeaders}}None{{/hasHeaders}}{{/oauth}}** → **Create**, then create a connection and **Add to agent**.",
+          "pt": "Autenticação: **{{#oauth}}OAuth 2.0{{/oauth}}{{^oauth}}{{#hasHeaders}}API key{{/hasHeaders}}{{^hasHeaders}}None{{/hasHeaders}}{{/oauth}}** → **Create**, depois crie a conexão e clique em **Add to agent**."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent",
+      "checked": "2026-11-08",
+      "title": "Add an existing MCP server to an agent"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp",
+      "checked": "2026-11-08",
+      "title": "Extend your agent with MCP"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "../schema.json",
+  "id": "msty",
+  "name": "Msty Studio",
+  "vendor": "CloudStack",
+  "category": "desktop",
+  "color": "#7c3aed",
+  "homepage": "https://msty.ai",
+  "docs": "https://docs.msty.ai/studio/toolbox/tools",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": false
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Not stated. Studio Web needs Studio Desktop to run tools.",
+    "pt": "Não informado. O Studio Web precisa do Studio Desktop para rodar ferramentas."
+  },
+  "limits": [
+    {
+      "en": "No legacy SSE.",
+      "pt": "Sem SSE antigo."
+    },
+    {
+      "en": "Add the tool to a toolset and pick the toolset in the chat; needs a model with tool calling.",
+      "pt": "Coloque a ferramenta num toolset e escolha o toolset na conversa; precisa de um modelo com tool calling."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "In Msty Studio",
+        "pt": "No Msty Studio"
+      },
+      "steps": [
+        {
+          "en": "Open **Toolbox → Tools → Add New Tool** and name it **{{displayName}}**.",
+          "pt": "Abra **Toolbox → Tools → Add New Tool** e dê o nome **{{displayName}}**."
+        },
+        {
+          "en": "{{#isRemote}}Choose **HTTP** and paste the server URL above{{#oauth}} (auth: OAuth){{/oauth}}.{{/isRemote}}{{^isRemote}}Choose **STDIO / JSON** and paste the JSON below.{{/isRemote}}",
+          "pt": "{{#isRemote}}Escolha **HTTP** e cole a URL do servidor acima{{#oauth}} (autenticação: OAuth){{/oauth}}.{{/isRemote}}{{^isRemote}}Escolha **STDIO / JSON** e cole o JSON abaixo.{{/isRemote}}"
+        },
+        {
+          "en": "Click **Test tool**, then **Save**, and add it to a toolset.",
+          "pt": "Clique em **Test tool**, depois em **Save**, e coloque num toolset."
+        }
+      ]
+    },
+    {
+      "id": "json",
+      "kind": "config",
+      "transport": "stdio",
+      "label": {
+        "en": "JSON to paste",
+        "pt": "JSON para colar"
+      },
+      "format": "json",
+      "template": "{{entry|pretty}}"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.msty.ai/studio/toolbox/tools",
+      "checked": "2026-11-08",
+      "title": "Msty Studio: Tools"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

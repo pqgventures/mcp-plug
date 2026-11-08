@@ -1,0 +1,116 @@
+{
+  "$schema": "../schema.json",
+  "id": "gemini-cli",
+  "name": "Gemini CLI",
+  "vendor": "Google",
+  "category": "cli",
+  "color": "#1a73e8",
+  "homepage": "https://geminicli.com",
+  "docs": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth discovered automatically; sign in with `/mcp auth <name>`.",
+      "pt": "OAuth descoberto sozinho; o login é com `/mcp auth <nome>`."
+    }
+  },
+  "plans": {
+    "en": "Anyone running Gemini CLI (Google account, API key, Vertex AI or Code Assist).",
+    "pt": "Qualquer pessoa que roda o Gemini CLI (conta Google, chave de API, Vertex AI ou Code Assist)."
+  },
+  "limits": [
+    {
+      "en": "In settings.json, `httpUrl` is Streamable HTTP and `url` is legacy SSE.",
+      "pt": "No settings.json, `httpUrl` é Streamable HTTP e `url` é o SSE antigo."
+    },
+    {
+      "en": "`gemini mcp add` defaults to the project scope; `--scope user` covers every folder.",
+      "pt": "`gemini mcp add` usa o escopo do projeto por padrão; `--scope user` vale para todas as pastas."
+    },
+    {
+      "en": "Your shell's secrets aren't passed to servers unless listed in `env`.",
+      "pt": "Segredos do seu shell não vão para o servidor a menos que estejam em `env`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli-http",
+      "kind": "command",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "gemini mcp add --transport {{transport}}{{#headerLines}} -H {{.|shell}}{{/headerLines}} --scope user {{name|shell}} {{url|shell}}",
+      "note": {
+        "en": "{{#oauth}}Then run `/mcp auth {{name}}` inside Gemini CLI.{{/oauth}}",
+        "pt": "{{#oauth}}Depois rode `/mcp auth {{name}}` dentro do Gemini CLI.{{/oauth}}"
+      }
+    },
+    {
+      "id": "cli-stdio",
+      "kind": "command",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "gemini mcp add --scope user{{#envPairs}} -e {{.|shell}}{{/envPairs}} {{name|shell}} {{command|shell}}{{#args?}} -- {{args|shell}}{{/args?}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in settings.json",
+        "pt": "Ou no settings.json"
+      },
+      "format": "json",
+      "vars": {
+        "g": {
+          "httpUrl": "{{#isRemote}}{{^sse}}{{url}}{{/sse}}{{/isRemote}}",
+          "url": "{{#isRemote}}{{#sse}}{{url}}{{/sse}}{{/isRemote}}",
+          "headers": "{{headers}}",
+          "...": "{{localEntry}}"
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{g}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.gemini/settings.json",
+        "windows": "%USERPROFILE%\\.gemini\\settings.json",
+        "linux": "~/.gemini/settings.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md",
+      "checked": "2026-11-08",
+      "title": "MCP servers with Gemini CLI"
+    },
+    {
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md",
+      "checked": "2026-11-08",
+      "title": "Gemini CLI extensions"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high",
+  "notes": "Extensions: gemini extensions install https://github.com/<owner>/<repo> (gemini-extension.json with mcpServers)."
+}

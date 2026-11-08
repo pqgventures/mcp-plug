@@ -1,0 +1,118 @@
+{
+  "$schema": "../schema.json",
+  "id": "claude-desktop",
+  "name": "Claude Desktop",
+  "vendor": "Anthropic",
+  "category": "desktop",
+  "color": "#b55d3f",
+  "homepage": "https://claude.ai/download",
+  "docs": "https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": false,
+    "note": {
+      "en": "Remote servers are added as Claude connectors (OAuth). Local servers run from the config file or a .mcpb extension.",
+      "pt": "Servidores remotos entram como conectores do Claude (OAuth). Locais rodam pelo arquivo de configuração ou por uma extensão .mcpb."
+    }
+  },
+  "plans": {
+    "en": "Any plan, Free included. On Team and Enterprise, owners can turn off public extensions or keep an allowlist.",
+    "pt": "Qualquer plano, inclusive o gratuito. Em Team e Enterprise, os donos podem desligar extensões públicas ou manter uma lista permitida."
+  },
+  "limits": [
+    {
+      "en": "Local servers from the config file don't reach claude.ai on the web or Cowork; remote connectors can't reach localhost.",
+      "pt": "Servidores locais do arquivo de configuração não aparecem no claude.ai nem no Cowork; conectores remotos não alcançam localhost."
+    },
+    {
+      "en": "Restart Claude Desktop after editing the config file. Use absolute paths for commands.",
+      "pt": "Reinicie o Claude Desktop depois de editar o arquivo. Use caminhos absolutos nos comandos."
+    },
+    {
+      "en": "Windows Store (MSIX) installs may keep the file under `%LOCALAPPDATA%\\Packages\\<Claude package>\\LocalCache\\Roaming\\Claude\\`.",
+      "pt": "Instalações pela Microsoft Store (MSIX) podem guardar o arquivo em `%LOCALAPPDATA%\\Packages\\<pacote do Claude>\\LocalCache\\Roaming\\Claude\\`."
+    },
+    {
+      "en": "Ship local servers as a one-click `.mcpb` extension: `npx @anthropic-ai/mcpb init` then `mcpb pack`.",
+      "pt": "Distribua servidores locais como extensão `.mcpb` de um clique: `npx @anthropic-ai/mcpb init` e depois `mcpb pack`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "connector-link",
+      "kind": "link",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Add to Claude",
+        "pt": "Adicionar ao Claude"
+      },
+      "template": "https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}",
+      "note": {
+        "en": "Remote servers are Claude connectors: add it once and it shows up in Claude Desktop too.",
+        "pt": "Servidores remotos são conectores do Claude: adicione uma vez e ele aparece também no Claude Desktop."
+      }
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Config file",
+        "pt": "Arquivo de configuração"
+      },
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "format": "json",
+      "file": {
+        "macos": "~/Library/Application Support/Claude/claude_desktop_config.json",
+        "windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+        "linux": "~/.config/Claude/claude_desktop_config.json"
+      },
+      "note": {
+        "en": "Open it from **Settings → Developer → Edit Config**, merge the server into `mcpServers` and restart Claude.",
+        "pt": "Abra em **Configurações → Desenvolvedor → Editar configuração**, junte o servidor em `mcpServers` e reinicie o Claude."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop",
+      "checked": "2026-11-08",
+      "title": "Getting started with local MCP servers on Claude Desktop"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/docs/develop/connect-local-servers",
+      "checked": "2026-11-08",
+      "title": "Connect to local MCP servers"
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/mcpb",
+      "checked": "2026-11-08",
+      "title": "MCP Bundles (.mcpb)"
+    },
+    {
+      "url": "https://github.com/anthropics/claude-code/issues/67843",
+      "checked": "2026-11-08",
+      "title": "MSIX config path issue"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

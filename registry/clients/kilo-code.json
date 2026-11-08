@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema.json",
+  "id": "kilo-code",
+  "name": "Kilo Code",
+  "vendor": "Kilo Code",
+  "category": "ide",
+  "color": "#f8f675",
+  "homepage": "https://kilo.ai",
+  "docs": "https://kilo.ai/docs/features/mcp/using-mcp-in-kilo-code",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "No plan restriction documented.",
+    "pt": "Sem restrição de plano documentada."
+  },
+  "limits": [
+    {
+      "en": "Short timeouts by default: 10 s local, 15 s remote.",
+      "pt": "Timeouts curtos por padrão: 10 s local, 15 s remoto."
+    },
+    {
+      "en": "Current format is `mcp` in `kilo.jsonc`; older versions used `mcpServers` in `mcp_settings.json`.",
+      "pt": "O formato atual é `mcp` no `kilo.jsonc`; versões antigas usavam `mcpServers` no `mcp_settings.json`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to kilo.jsonc",
+        "pt": "Coloque no kilo.jsonc"
+      },
+      "format": "jsonc",
+      "vars": {
+        "k": {
+          "type": "{{#isRemote}}remote{{/isRemote}}{{^isRemote}}local{{/isRemote}}",
+          "url": "{{#isRemote}}{{url}}{{/isRemote}}",
+          "headers": "{{headers}}",
+          "command": "{{commandArray}}",
+          "environment": "{{envLocal}}",
+          "enabled": true
+        },
+        "cfg": {
+          "mcp": {
+            "{{name}}": "{{k}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.config/kilo/kilo.jsonc",
+        "windows": "%USERPROFILE%\\.config\\kilo\\kilo.jsonc",
+        "linux": "~/.config/kilo/kilo.jsonc"
+      },
+      "note": {
+        "en": "Or **Settings → Agent Behaviour → MCP Servers → Add Server** in the extension.",
+        "pt": "Ou **Settings → Agent Behaviour → MCP Servers → Add Server** na extensão."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://kilo.ai/docs/features/mcp/using-mcp-in-kilo-code",
+      "checked": "2026-11-08",
+      "title": "Using MCP in Kilo Code"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

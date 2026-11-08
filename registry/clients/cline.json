@@ -1,0 +1,97 @@
+{
+  "$schema": "../schema.json",
+  "id": "cline",
+  "name": "Cline",
+  "vendor": "Cline Bot",
+  "category": "ide",
+  "color": "#5a4fcf",
+  "homepage": "https://cline.bot",
+  "docs": "https://docs.cline.bot/mcp/mcp-overview",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Free and open source. Enterprise admins can allowlist servers or block personal ones.",
+    "pt": "Gratuito e open source. Admins Enterprise podem limitar servidores ou bloquear os pessoais."
+  },
+  "limits": [
+    {
+      "en": "If `type` is left out on a URL server, Cline uses legacy SSE. Set `\"type\": \"streamableHttp\"`.",
+      "pt": "Se faltar o `type` num servidor por URL, o Cline usa o SSE antigo. Coloque `\"type\": \"streamableHttp\"`."
+    },
+    {
+      "en": "The settings file lives in the editor's storage; open it with **MCP Servers → Configure → Configure MCP Servers**.",
+      "pt": "O arquivo fica no armazenamento do editor; abra por **MCP Servers → Configure → Configure MCP Servers**."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Cline CLI",
+        "pt": "Cline CLI"
+      },
+      "template": "{{#isRemote}}cline mcp add {{name|shell}} {{url|shell}} --transport http{{#headerLines}} --header {{.|shell}}{{/headerLines}} --yes{{/isRemote}}{{^isRemote}}cline mcp add {{name|shell}} --yes -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}{{/isRemote}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in cline_mcp_settings.json",
+        "pt": "Ou no cline_mcp_settings.json"
+      },
+      "format": "json",
+      "vars": {
+        "e": {
+          "type": "{{#isRemote}}{{#sse}}sse{{/sse}}{{^sse}}streamableHttp{{/sse}}{{/isRemote}}",
+          "...": "{{entry}}",
+          "disabled": false
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{e}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+        "windows": "%APPDATA%\\Code\\User\\globalStorage\\saoudrizwan.claude-dev\\settings\\cline_mcp_settings.json",
+        "linux": "~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.cline.bot/mcp/mcp-overview",
+      "checked": "2026-11-08",
+      "title": "Cline MCP overview"
+    },
+    {
+      "url": "https://github.com/cline/mcp-marketplace",
+      "checked": "2026-11-08",
+      "title": "Cline MCP marketplace"
+    },
+    {
+      "url": "https://docs.cline.bot/enterprise-solutions/configuration/infrastructure-configuration/control-other-cline-features/mcp-server-controls",
+      "checked": "2026-11-08",
+      "title": "MCP server controls"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium",
+  "notes": "Marketplace listing: GitHub issue in cline/mcp-marketplace with repo, 400x400 logo; Cline installs by reading README.md or llms-install.md."
+}

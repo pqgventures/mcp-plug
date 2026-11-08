@@ -1,0 +1,96 @@
+{
+  "$schema": "../schema.json",
+  "id": "lm-studio",
+  "name": "LM Studio",
+  "vendor": "Element Labs",
+  "category": "desktop",
+  "color": "#4f46e5",
+  "homepage": "https://lmstudio.ai",
+  "docs": "https://lmstudio.ai/docs/app/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Free app; MCP since version 0.3.17.",
+    "pt": "App gratuito; MCP desde a versão 0.3.17."
+  },
+  "limits": [
+    {
+      "en": "A token inside a public Add to LM Studio link is visible to anyone with the link.",
+      "pt": "Um token dentro de um link público do LM Studio fica visível para quem tiver o link."
+    },
+    {
+      "en": "Servers built for Claude or ChatGPT can overflow the context of small local models.",
+      "pt": "Servidores feitos para Claude ou ChatGPT podem estourar o contexto de modelos locais pequenos."
+    }
+  ],
+  "methods": [
+    {
+      "id": "deeplink",
+      "kind": "link",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to LM Studio",
+        "pt": "Adicionar ao LM Studio"
+      },
+      "template": "lmstudio://add_mcp?name={{name|uri}}&config={{entry|json|base64|uri}}",
+      "webTemplate": "https://lmstudio.ai/install-mcp?name={{name|uri}}&config={{entry|json|base64|uri}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in mcp.json",
+        "pt": "Ou no mcp.json"
+      },
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "format": "json",
+      "file": {
+        "macos": "~/.lmstudio/mcp.json",
+        "windows": "%USERPROFILE%\\.lmstudio\\mcp.json",
+        "linux": "~/.lmstudio/mcp.json"
+      },
+      "note": {
+        "en": "In the app: **Program** tab → **Install** → **Edit mcp.json**.",
+        "pt": "No app: aba **Program** → **Install** → **Edit mcp.json**."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://lmstudio.ai/docs/app/mcp/deeplink",
+      "checked": "2026-11-08",
+      "title": "Add to LM Studio button"
+    },
+    {
+      "url": "https://lmstudio.ai/docs/app/mcp",
+      "checked": "2026-11-08",
+      "title": "Use MCP servers"
+    },
+    {
+      "url": "https://lmstudio.ai/blog/lmstudio-v0.3.17",
+      "checked": "2026-11-08",
+      "title": "LM Studio 0.3.17"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "../schema.json",
+  "id": "codex",
+  "name": "Codex",
+  "vendor": "OpenAI",
+  "category": "cli",
+  "color": "#10a37f",
+  "homepage": "https://developers.openai.com/codex",
+  "docs": "https://developers.openai.com/codex/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": false
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth with `codex mcp login <name>`; bearer token from an environment variable or fixed `http_headers`.",
+      "pt": "OAuth com `codex mcp login <nome>`; token bearer por variável de ambiente ou `http_headers` fixos."
+    }
+  },
+  "plans": {
+    "en": "Any Codex user (ChatGPT plan with Codex, or API key). The CLI, the desktop app and the IDE extension share the same config.",
+    "pt": "Qualquer pessoa que usa o Codex (plano do ChatGPT com Codex ou chave de API). CLI, app e extensão de IDE usam a mesma configuração."
+  },
+  "limits": [
+    {
+      "en": "No legacy SSE: only stdio and Streamable HTTP.",
+      "pt": "Sem SSE antigo: só stdio e Streamable HTTP."
+    },
+    {
+      "en": "Servers have 10 s to start by default (`startup_timeout_sec`).",
+      "pt": "O servidor tem 10 s para iniciar por padrão (`startup_timeout_sec`)."
+    },
+    {
+      "en": "A project's `.codex/config.toml` is only read in trusted projects.",
+      "pt": "O `.codex/config.toml` de um projeto só vale em projetos confiáveis."
+    },
+    {
+      "en": "Codex runs commands in a sandbox; servers that need the network or files outside the workspace may need `sandbox` settings.",
+      "pt": "O Codex roda comandos num sandbox; servidores que precisam de rede ou de arquivos fora do projeto podem pedir ajuste no `sandbox`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli-http",
+      "kind": "command",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "codex mcp add {{name|shell}} --url {{url|shell}}{{#oauth}}\ncodex mcp login {{name|shell}}{{/oauth}}"
+    },
+    {
+      "id": "cli-stdio",
+      "kind": "command",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "codex mcp add {{name|shell}}{{#envPairs}} --env {{.|shell}}{{/envPairs}} -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in the config file",
+        "pt": "Ou no arquivo de configuração"
+      },
+      "format": "toml",
+      "template": "[mcp_servers.{{name|tomlkey}}]\n{{#isRemote}}url = {{url|toml}}\n{{#hasHeaders}}http_headers = {{headers|toml}}\n{{/hasHeaders}}{{/isRemote}}{{^isRemote}}command = {{command|toml}}\n{{#args?}}args = {{args|toml}}\n{{/args?}}{{#hasEnv}}env = {{env|toml}}\n{{/hasEnv}}{{/isRemote}}",
+      "file": {
+        "macos": "~/.codex/config.toml",
+        "windows": "%USERPROFILE%\\.codex\\config.toml",
+        "linux": "~/.codex/config.toml"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://developers.openai.com/codex/mcp",
+      "checked": "2026-11-08",
+      "title": "Codex: Model Context Protocol"
+    },
+    {
+      "url": "https://developers.openai.com/codex/config-reference",
+      "checked": "2026-11-08",
+      "title": "Codex configuration reference"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high",
+  "notes": "Plugins: codex plugin marketplace add <repo>; codex plugin add <plugin>@<marketplace> (.codex-plugin/plugin.json + .mcp.json)."
+}

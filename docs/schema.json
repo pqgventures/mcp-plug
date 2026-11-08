@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pqgventures.github.io/mcp-plug/schema/client.json",
+  "title": "mcp-plug client entry",
+  "description": "How to plug an MCP server into one LLM client or personal agent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "vendor",
+    "category",
+    "homepage",
+    "transports",
+    "auth",
+    "plans",
+    "methods",
+    "sources",
+    "verified",
+    "confidence"
+  ],
+  "$defs": {
+    "text": {
+      "description": "Text in English and Brazilian Portuguese.",
+      "type": "object",
+      "required": [
+        "en",
+        "pt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pt": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "tri": {
+      "description": "true, false, or null when unknown.",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "macos": {
+          "type": "string"
+        },
+        "windows": {
+          "type": "string"
+        },
+        "linux": {
+          "type": "string"
+        },
+        "any": {
+          "type": "string"
+        }
+      }
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "transport",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "kind": {
+          "enum": [
+            "link",
+            "command",
+            "config",
+            "steps"
+          ],
+          "description": "link = button that opens a URL or app scheme; command = shell/chat command to copy; config = file snippet to copy; steps = numbered manual steps"
+        },
+        "transport": {
+          "enum": [
+            "http",
+            "stdio",
+            "both"
+          ]
+        },
+        "headers": {
+          "type": "boolean",
+          "description": "false when this method cannot carry custom headers"
+        },
+        "oauth": {
+          "type": "boolean",
+          "description": "false when this method cannot complete OAuth"
+        },
+        "sse": {
+          "type": "boolean",
+          "description": "false when this method cannot use legacy SSE servers"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "template": {
+          "type": "string",
+          "description": "Mustache-subset template rendered with the server context (see docs/TEMPLATES.md)"
+        },
+        "vars": {
+          "type": "object",
+          "description": "Named JSON templates rendered before the template"
+        },
+        "file": {
+          "$ref": "#/$defs/paths"
+        },
+        "format": {
+          "enum": [
+            "json",
+            "jsonc",
+            "toml",
+            "yaml",
+            "text",
+            "shell"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "note": {
+          "$ref": "#/$defs/text"
+        },
+        "webTemplate": {
+          "type": "string",
+          "description": "https:// equivalent of an app-scheme link, used for README badges"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "link",
+                  "command",
+                  "config"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "template"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "steps"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "chat",
+        "ide",
+        "cli",
+        "desktop",
+        "agent"
+      ]
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "docs": {
+      "type": "string",
+      "format": "uri"
+    },
+    "openUrl": {
+      "type": "string",
+      "description": "URL or app scheme that opens the screen where a server is added (may use {{name}} and {{url}})"
+    },
+    "transports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stdio",
+        "http"
+      ],
+      "properties": {
+        "stdio": {
+          "$ref": "#/$defs/tri"
+        },
+        "http": {
+          "$ref": "#/$defs/tri"
+        },
+        "sse": {
+          "$ref": "#/$defs/tri"
+        }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oauth",
+        "headers"
+      ],
+      "properties": {
+        "oauth": {
+          "$ref": "#/$defs/tri"
+        },
+        "dcr": {
+          "$ref": "#/$defs/tri"
+        },
+        "cimd": {
+          "$ref": "#/$defs/tri"
+        },
+        "pkce": {
+          "$ref": "#/$defs/tri"
+        },
+        "headers": {
+          "$ref": "#/$defs/tri"
+        },
+        "note": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "plans": {
+      "$ref": "#/$defs/text"
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "methods": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/method"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "url",
+          "checked"
+        ],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "quote": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verified": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$",
+      "description": "Brand-ish colour for the tab dot and badge"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "../schema.json",
+  "id": "continue",
+  "name": "Continue",
+  "vendor": "Continue",
+  "category": "ide",
+  "color": "#1e1e1e",
+  "homepage": "https://continue.dev",
+  "docs": "https://docs.continue.dev/customize/deep-dives/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": null
+  },
+  "plans": {
+    "en": "Open source; local config needs no plan.",
+    "pt": "Open source; a configuração local não pede plano."
+  },
+  "limits": [
+    {
+      "en": "MCP only works in Agent mode.",
+      "pt": "MCP só funciona no modo Agent."
+    },
+    {
+      "en": "Auth for remote servers isn't documented.",
+      "pt": "O login de servidores remotos não está documentado."
+    }
+  ],
+  "methods": [
+    {
+      "id": "block",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Save as a block in your workspace",
+        "pt": "Salve como bloco no projeto"
+      },
+      "format": "yaml",
+      "template": "name: {{displayName|yaml}}\nversion: 0.0.1\nschema: v1\nmcpServers:\n  - name: {{name|yaml}}\n{{#isRemote}}    type: {{#sse}}sse{{/sse}}{{^sse}}streamable-http{{/sse}}\n    url: {{url|yaml}}\n{{/isRemote}}{{^isRemote}}    type: stdio\n    command: {{command|yaml}}\n    args: {{args|json}}\n{{#hasEnv}}    env:\n{{#envList}}      {{key|yaml}}: {{value|yaml}}\n{{/envList}}{{/hasEnv}}{{/isRemote}}",
+      "file": {
+        "any": ".continue/mcpServers/{{name|slug}}.yaml"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.continue.dev/customize/deep-dives/mcp",
+      "checked": "2026-11-08",
+      "title": "Continue: MCP"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "low"
+}

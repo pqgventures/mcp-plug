@@ -1,0 +1,97 @@
+{
+  "$schema": "../schema.json",
+  "id": "copilot-cli",
+  "name": "Copilot CLI",
+  "vendor": "GitHub",
+  "category": "cli",
+  "color": "#24292f",
+  "homepage": "https://github.com/features/copilot/cli",
+  "docs": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Any Copilot plan. Organization policies (MCP registry and allowlist) can limit which servers run.",
+    "pt": "Qualquer plano do Copilot. Políticas da organização (registro e lista de MCP permitidos) podem limitar os servidores."
+  },
+  "limits": [
+    {
+      "en": "The Copilot cloud agent and code review only use tools (no resources or prompts) and can't sign in to OAuth servers.",
+      "pt": "O cloud agent e o code review do Copilot só usam ferramentas (sem resources nem prompts) e não fazem login OAuth."
+    },
+    {
+      "en": "Copilot code review only calls tools marked `readOnlyHint: true`.",
+      "pt": "O code review do Copilot só chama ferramentas marcadas com `readOnlyHint: true`."
+    },
+    {
+      "en": "A committed `.mcp.json` or `.github/mcp.json` in the repo is picked up too.",
+      "pt": "Um `.mcp.json` ou `.github/mcp.json` no repositório também é lido."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "{{#isRemote}}copilot mcp add --transport {{transport}}{{#headerLines}} --header {{.|shell}}{{/headerLines}} {{name|shell}} {{url|shell}}{{/isRemote}}{{^isRemote}}copilot mcp add{{#envPairs}} --env {{.|shell}}{{/envPairs}} {{name|shell}} -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}{{/isRemote}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in mcp-config.json",
+        "pt": "Ou no mcp-config.json"
+      },
+      "format": "json",
+      "vars": {
+        "e": {
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}local{{/isRemote}}",
+          "...": "{{entry}}",
+          "tools": [
+            "*"
+          ]
+        },
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{e}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.copilot/mcp-config.json",
+        "windows": "%USERPROFILE%\\.copilot\\mcp-config.json",
+        "linux": "~/.copilot/mcp-config.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers",
+      "checked": "2026-11-08",
+      "title": "Add MCP servers to Copilot CLI"
+    },
+    {
+      "url": "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/extend-coding-agent-with-mcp",
+      "checked": "2026-11-08",
+      "title": "Extend the Copilot cloud agent with MCP"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

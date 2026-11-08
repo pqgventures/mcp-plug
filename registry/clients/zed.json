@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "id": "zed",
+  "name": "Zed",
+  "vendor": "Zed Industries",
+  "category": "ide",
+  "color": "#084ccf",
+  "homepage": "https://zed.dev",
+  "docs": "https://zed.dev/docs/ai/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true,
+    "note": {
+      "en": "Leave out the Authorization header to get Zed's OAuth sign-in.",
+      "pt": "Deixe sem o cabeçalho Authorization para o Zed abrir o login OAuth."
+    }
+  },
+  "plans": {
+    "en": "Local setting, not tied to a plan.",
+    "pt": "Configuração local, sem ligação com plano."
+  },
+  "limits": [
+    {
+      "en": "Only MCP tools and prompts (no resources, sampling or elicitation).",
+      "pt": "Só ferramentas e prompts do MCP (sem resources, sampling nem elicitation)."
+    }
+  ],
+  "methods": [
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Add to Zed settings",
+        "pt": "Adicione nas configurações do Zed"
+      },
+      "format": "jsonc",
+      "vars": {
+        "cfg": {
+          "context_servers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.config/zed/settings.json",
+        "windows": "%APPDATA%\\Zed\\settings.json",
+        "linux": "~/.config/zed/settings.json"
+      },
+      "note": {
+        "en": "Run **zed: open settings file** and merge into `context_servers`. Or use **Settings → AI → MCP Servers → Add Server**.",
+        "pt": "Rode **zed: open settings file** e junte em `context_servers`. Ou use **Settings → AI → MCP Servers → Add Server**."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://zed.dev/docs/ai/mcp",
+      "checked": "2026-11-08",
+      "title": "Model Context Protocol in Zed"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}

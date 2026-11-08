@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema.json",
+  "id": "perplexity",
+  "name": "Perplexity",
+  "vendor": "Perplexity",
+  "category": "chat",
+  "color": "#20808d",
+  "homepage": "https://www.perplexity.ai",
+  "docs": "https://www.perplexity.ai/help-center/en/articles/11502712-local-and-remote-mcps-for-perplexity",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": null,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": null
+  },
+  "plans": {
+    "en": "Not stated for custom servers. Local servers need the Mac App Store app.",
+    "pt": "Não informado para servidores próprios. Servidores locais precisam do app da Mac App Store."
+  },
+  "limits": [
+    {
+      "en": "Local servers only on macOS (Mac App Store app with the PerplexityXPC helper).",
+      "pt": "Servidores locais só no macOS (app da Mac App Store com o helper PerplexityXPC)."
+    },
+    {
+      "en": "Auth options for remote servers aren't documented.",
+      "pt": "As opções de login para servidores remotos não estão documentadas."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "In Perplexity",
+        "pt": "No Perplexity"
+      },
+      "steps": [
+        {
+          "en": "Open **Plugins** in the sidebar → **Add custom**.",
+          "pt": "Abra **Plugins** na barra lateral → **Add custom**."
+        },
+        {
+          "en": "{{#isRemote}}Enter **{{displayName}}** and the server URL above, then sign in.{{/isRemote}}{{^isRemote}}On the **Simple** tab: name **{{displayName}}**, command `{{command}}{{#args?}} {{args|shell}}{{/args?}}`. Save.{{/isRemote}}",
+          "pt": "{{#isRemote}}Coloque **{{displayName}}** e a URL do servidor acima, depois entre na sua conta.{{/isRemote}}{{^isRemote}}Na aba **Simple**: nome **{{displayName}}**, comando `{{command}}{{#args?}} {{args|shell}}{{/args?}}`. Salve.{{/isRemote}}"
+        },
+        {
+          "en": "Turn it on under **Sources** on the home page.",
+          "pt": "Ligue em **Sources** na página inicial."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.perplexity.ai/help-center/en/articles/11502712-local-and-remote-mcps-for-perplexity",
+      "checked": "2026-11-08",
+      "title": "Local and remote MCPs for Perplexity"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "low"
+}

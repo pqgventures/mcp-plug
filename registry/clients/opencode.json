@@ -1,0 +1,110 @@
+{
+  "$schema": "../schema.json",
+  "id": "opencode",
+  "name": "OpenCode",
+  "vendor": "SST / Anomaly",
+  "category": "cli",
+  "color": "#211e1e",
+  "homepage": "https://opencode.ai",
+  "docs": "https://opencode.ai/docs/mcp-servers/",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": false
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth with pre-registered client, CIMD or DCR, in that order. `opencode mcp auth <name>`.",
+      "pt": "OAuth com cliente pré-registrado, CIMD ou DCR, nessa ordem. `opencode mcp auth <nome>`."
+    }
+  },
+  "plans": {
+    "en": "Open source, no plan restriction.",
+    "pt": "Open source, sem restrição de plano."
+  },
+  "limits": [
+    {
+      "en": "Remote servers must speak Streamable HTTP.",
+      "pt": "Servidores remotos precisam falar Streamable HTTP."
+    },
+    {
+      "en": "Local servers take one `command` array (program + arguments) and `environment` instead of `env`.",
+      "pt": "Servidores locais usam um único array `command` (programa + argumentos) e `environment` no lugar de `env`."
+    },
+    {
+      "en": "Older configs keep servers directly under `mcp` with `enabled`; current ones use `mcp.servers` with `disabled`.",
+      "pt": "Configs antigas põem os servidores direto em `mcp` com `enabled`; as atuais usam `mcp.servers` com `disabled`."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "{{#isRemote}}opencode mcp add {{name|shell}} --global --url {{url|shell}}{{#headerList}} --header {{key}}={{value|shell}}{{/headerList}}{{#oauth}}\nopencode mcp auth {{name|shell}}{{/oauth}}{{/isRemote}}{{^isRemote}}opencode mcp add {{name|shell}} --global{{#envPairs}} --env {{.|shell}}{{/envPairs}} -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}{{/isRemote}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in opencode.json",
+        "pt": "Ou no opencode.json"
+      },
+      "format": "json",
+      "vars": {
+        "cmdArr": "{{commandArray}}",
+        "o": {
+          "type": "{{#isRemote}}remote{{/isRemote}}{{^isRemote}}local{{/isRemote}}",
+          "url": "{{#isRemote}}{{url}}{{/isRemote}}",
+          "headers": "{{headers}}",
+          "command": "{{cmdArr}}",
+          "environment": "{{envLocal}}"
+        },
+        "cfg": {
+          "$schema": "https://opencode.ai/config.json",
+          "mcp": {
+            "servers": {
+              "{{name}}": "{{o}}"
+            }
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.config/opencode/opencode.json",
+        "windows": "%USERPROFILE%\\.config\\opencode\\opencode.json",
+        "linux": "~/.config/opencode/opencode.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://opencode.ai/docs/mcp-servers/",
+      "checked": "2026-11-08",
+      "title": "OpenCode MCP servers"
+    },
+    {
+      "url": "https://opencode.ai/docs/config/",
+      "checked": "2026-11-08",
+      "title": "OpenCode config"
+    },
+    {
+      "url": "https://github.com/sst/opencode/blob/dev/packages/web/src/content/docs/mcp-servers.mdx",
+      "checked": "2026-11-08",
+      "title": "MCP servers doc source"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

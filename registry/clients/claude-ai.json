@@ -1,0 +1,120 @@
+{
+  "$schema": "../schema.json",
+  "id": "claude-ai",
+  "name": "Claude",
+  "vendor": "Anthropic",
+  "category": "chat",
+  "color": "#d97757",
+  "homepage": "https://claude.ai",
+  "docs": "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
+  "openUrl": "https://claude.ai/customize/connectors",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": false,
+    "note": {
+      "en": "OAuth with Claude's published client identity (CIMD), automatic registration (DCR) or your own client ID. Static request headers are a limited beta (up to 4 headers).",
+      "pt": "OAuth com a identidade publicada do Claude (CIMD), registro automático (DCR) ou client ID próprio. Cabeçalhos fixos são um beta restrito (até 4)."
+    }
+  },
+  "plans": {
+    "en": "All plans. Free allows one custom connector. On Team and Enterprise only owners add connectors; members then connect.",
+    "pt": "Todos os planos. O gratuito permite um conector personalizado. Em Team e Enterprise só os donos adicionam; os membros depois conectam."
+  },
+  "limits": [
+    {
+      "en": "Remote only: Claude connects from Anthropic's cloud, so the server must be reachable from the internet (no localhost or VPN).",
+      "pt": "Só remoto: o Claude conecta a partir da nuvem da Anthropic, então o servidor precisa estar acessível pela internet (sem localhost nem VPN)."
+    },
+    {
+      "en": "A connector can't be edited. To change the URL or the sign-in, remove it and add it again.",
+      "pt": "Um conector não pode ser editado. Para mudar a URL ou o login, remova e adicione de novo."
+    },
+    {
+      "en": "Connectors added on the web also show up in Claude Desktop, the mobile apps and Claude Code.",
+      "pt": "Conectores adicionados na web aparecem também no Claude Desktop, nos apps de celular e no Claude Code."
+    },
+    {
+      "en": "Don't put a query string in the MCP URL (`/mcp?x=1`): connectors fail with a connection error.",
+      "pt": "Não coloque query string na URL do MCP (`/mcp?x=1`): o conector falha com erro de conexão."
+    },
+    {
+      "en": "For servers that need an API key, a per-user URL with the key in the path (`/mcp/<key>`) works where headers don't.",
+      "pt": "Para servidores que pedem chave, uma URL por pessoa com a chave no caminho (`/mcp/<chave>`) funciona onde cabeçalhos não funcionam."
+    }
+  ],
+  "methods": [
+    {
+      "id": "add-link",
+      "kind": "link",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Add to Claude",
+        "pt": "Adicionar ao Claude"
+      },
+      "template": "https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}",
+      "note": {
+        "en": "Opens Claude's Add custom connector window with the name and URL filled in. Click **Add**, then **Connect**.",
+        "pt": "Abre a janela Adicionar conector personalizado do Claude com nome e URL preenchidos. Clique em **Adicionar** e depois em **Conectar**."
+      }
+    },
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "http",
+      "headers": false,
+      "label": {
+        "en": "Or by hand",
+        "pt": "Ou à mão"
+      },
+      "steps": [
+        {
+          "en": "In Claude, open **Customize → Connectors** and click **+ → Add custom connector**.",
+          "pt": "No Claude, abra **Personalizar → Conectores** e clique em **+ → Adicionar conector personalizado**."
+        },
+        {
+          "en": "Name: **{{displayName}}**. URL: the server URL above.",
+          "pt": "Nome: **{{displayName}}**. URL: a URL do servidor acima."
+        },
+        {
+          "en": "Click **Add**, then **Connect**{{#oauth}} and sign in{{/oauth}}.",
+          "pt": "Clique em **Adicionar** e depois em **Conectar**{{#oauth}} e entre na sua conta{{/oauth}}."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
+      "checked": "2026-11-08",
+      "title": "Get started with custom connectors using remote MCP"
+    },
+    {
+      "url": "https://claude.com/docs/connectors/building/authentication",
+      "checked": "2026-11-08",
+      "title": "Connectors: authentication"
+    },
+    {
+      "url": "https://claude.com/docs/connectors/custom/add-unlisted",
+      "checked": "2026-11-08",
+      "title": "Add an unlisted connector"
+    },
+    {
+      "url": "https://github.com/pqgventures/dilligence-mcp",
+      "checked": "2026-11-08",
+      "title": "Dilligence README (add-custom-connector link used in production)"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high",
+  "notes": "The modal/connectorName/connectorUrl parameters are undocumented but used in production (Dilligence, 2026-11). Directory submissions: claude.ai/directory/manage (paid plan)."
+}

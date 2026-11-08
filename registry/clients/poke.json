@@ -1,0 +1,89 @@
+{
+  "$schema": "../schema.json",
+  "id": "poke",
+  "name": "Poke",
+  "vendor": "The Interaction Company",
+  "category": "agent",
+  "color": "#111827",
+  "homepage": "https://poke.com",
+  "docs": "https://poke.com/docs/mcp-servers",
+  "openUrl": "https://poke.com/integrations/new",
+  "transports": {
+    "stdio": false,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": null,
+    "pkce": null,
+    "headers": true,
+    "note": {
+      "en": "OAuth (DCR, or a client set up in a Template) or an API key.",
+      "pt": "OAuth (DCR, ou cliente configurado num Template) ou chave de API."
+    }
+  },
+  "plans": {
+    "en": "Any Poke user, from the web app.",
+    "pt": "Qualquer pessoa que usa o Poke, pelo app web."
+  },
+  "limits": [
+    {
+      "en": "Remote only; local servers need `npx poke@latest tunnel <local-url>`.",
+      "pt": "Só remoto; servidor local precisa de `npx poke@latest tunnel <url-local>`."
+    },
+    {
+      "en": "An API key inside a shared prefilled link is visible to anyone with the link.",
+      "pt": "Uma chave de API dentro de um link compartilhado fica visível para quem tiver o link."
+    },
+    {
+      "en": "Poke recommends Recipes (poke.com/kitchen) for distribution: you can change the server later and earn from usage.",
+      "pt": "O Poke recomenda Recipes (poke.com/kitchen) para distribuir: dá para mudar o servidor depois e ganhar com o uso."
+    }
+  ],
+  "methods": [
+    {
+      "id": "prefill",
+      "kind": "link",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Add to Poke",
+        "pt": "Adicionar ao Poke"
+      },
+      "template": "https://poke.com/integrations/new?name={{displayName|uri}}&url={{url|uri}}",
+      "note": {
+        "en": "Check the fields and click **Create Integration**.",
+        "pt": "Confira os campos e clique em **Create Integration**."
+      }
+    },
+    {
+      "id": "cli",
+      "kind": "command",
+      "transport": "http",
+      "headers": false,
+      "label": {
+        "en": "Or from the terminal",
+        "pt": "Ou pelo terminal"
+      },
+      "template": "npx poke@latest mcp add {{url|shell}} -n {{displayName|shell}}"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://poke.com/docs/mcp-servers",
+      "checked": "2026-11-08",
+      "title": "Poke: MCP servers"
+    },
+    {
+      "url": "https://poke.com/llms.txt",
+      "checked": "2026-11-08",
+      "title": "Poke llms.txt"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high",
+  "notes": "Servers receive X-Poke-User-Id for per-user scoping."
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "../schema.json",
+  "id": "warp",
+  "name": "Warp",
+  "vendor": "Warp",
+  "category": "cli",
+  "color": "#01a4ff",
+  "homepage": "https://warp.dev",
+  "docs": "https://docs.warp.dev/agents/capabilities/mcp/",
+  "openUrl": "warp://settings/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "No plan gate for local agents; sharing servers with a team needs a Warp team.",
+    "pt": "Sem restrição de plano para agentes locais; compartilhar com o time pede um time no Warp."
+  },
+  "limits": [
+    {
+      "en": "Warp can also start servers from `~/.claude.json`, `~/.codex/config.toml` and `~/.agents/.mcp.json` (setting **Auto-spawn servers from third-party agents**).",
+      "pt": "O Warp também inicia servidores de `~/.claude.json`, `~/.codex/config.toml` e `~/.agents/.mcp.json` (opção **Auto-spawn servers from third-party agents**)."
+    },
+    {
+      "en": "Project servers (`.warp/.mcp.json`) need approval every session.",
+      "pt": "Servidores do projeto (`.warp/.mcp.json`) pedem aprovação a cada sessão."
+    }
+  ],
+  "methods": [
+    {
+      "id": "settings",
+      "kind": "link",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Open Warp MCP settings",
+        "pt": "Abrir MCP no Warp"
+      },
+      "template": "warp://settings/mcp",
+      "note": {
+        "en": "Click **+ Add** and paste the JSON below.",
+        "pt": "Clique em **+ Add** e cole o JSON abaixo."
+      }
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "JSON to paste, or save in the file",
+        "pt": "JSON para colar, ou salve no arquivo"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.warp/.mcp.json",
+        "linux": "~/.warp/.mcp.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://docs.warp.dev/agents/capabilities/mcp/",
+      "checked": "2026-11-08",
+      "title": "Warp: MCP servers"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

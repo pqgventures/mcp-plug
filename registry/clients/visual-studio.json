@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema.json",
+  "id": "visual-studio",
+  "name": "Visual Studio",
+  "vendor": "Microsoft",
+  "category": "ide",
+  "color": "#68217a",
+  "homepage": "https://visualstudio.microsoft.com",
+  "docs": "https://learn.microsoft.com/en-us/visualstudio/ide/mcp-servers",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "Any GitHub Copilot plan, Free included. Visual Studio 2026, or 2022 17.14+.",
+    "pt": "Qualquer plano do GitHub Copilot, inclusive o Free. Visual Studio 2026, ou 2022 17.14+."
+  },
+  "limits": [
+    {
+      "en": "Windows only.",
+      "pt": "Só Windows."
+    },
+    {
+      "en": "New tools start disabled; turn them on in Agent mode → Tools.",
+      "pt": "Ferramentas novas começam desligadas; ligue em Agent mode → Tools."
+    },
+    {
+      "en": "Visual Studio also reads `.vscode/mcp.json` and `.cursor/mcp.json` from the solution.",
+      "pt": "O Visual Studio também lê `.vscode/mcp.json` e `.cursor/mcp.json` da solução."
+    }
+  ],
+  "methods": [
+    {
+      "id": "link",
+      "kind": "link",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "Install in Visual Studio",
+        "pt": "Instalar no Visual Studio"
+      },
+      "vars": {
+        "vs": {
+          "name": "{{name}}",
+          "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+          "...": "{{entry}}"
+        }
+      },
+      "template": "vsweb+mcp://install/?{{vs|json|uri}}",
+      "webTemplate": "https://vs-open.link/mcp-install?{{vs|json|uri}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in .mcp.json",
+        "pt": "Ou no .mcp.json"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "servers": {
+            "{{name}}": {
+              "type": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+              "...": "{{entry}}"
+            }
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "windows": "%USERPROFILE%\\.mcp.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://learn.microsoft.com/en-us/visualstudio/ide/mcp-servers",
+      "checked": "2026-11-08",
+      "title": "Use MCP servers in Visual Studio"
+    },
+    {
+      "url": "https://github.com/MicrosoftDocs/visualstudio-docs/blob/main/docs/ide/mcp-servers.md",
+      "checked": "2026-11-08",
+      "title": "Doc source"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

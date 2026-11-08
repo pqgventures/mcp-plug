@@ -1,0 +1,96 @@
+{
+  "$schema": "../schema.json",
+  "id": "goose",
+  "name": "Goose",
+  "vendor": "AAIF (ex-Block)",
+  "category": "agent",
+  "color": "#3b3b3b",
+  "homepage": "https://goose-docs.ai",
+  "docs": "https://goose-docs.ai/docs/getting-started/using-extensions/",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": null
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": null
+  },
+  "plans": {
+    "en": "Free and open source (Apache-2.0).",
+    "pt": "Gratuito e open source (Apache-2.0)."
+  },
+  "limits": [
+    {
+      "en": "Local install links only accept `npx`, `uvx`, `jbang`, `docker` or `goosed` as the command.",
+      "pt": "Links de servidor local só aceitam `npx`, `uvx`, `jbang`, `docker` ou `goosed` como comando."
+    },
+    {
+      "en": "Links can't carry secrets; Goose asks for environment variables after the click.",
+      "pt": "Links não levam segredos; o Goose pede as variáveis de ambiente depois do clique."
+    }
+  ],
+  "methods": [
+    {
+      "id": "deeplink-http",
+      "kind": "link",
+      "transport": "http",
+      "headers": false,
+      "primary": true,
+      "label": {
+        "en": "Add to Goose",
+        "pt": "Adicionar ao Goose"
+      },
+      "template": "goose://extension?url={{url|uri}}&type=streamable_http&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+    },
+    {
+      "id": "deeplink-stdio",
+      "kind": "link",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Add to Goose",
+        "pt": "Adicionar ao Goose"
+      },
+      "template": "goose://extension?cmd={{command|uri}}{{#args}}&arg={{.|uri}}{{/args}}&timeout=300&id={{name|slug|uri}}&name={{displayName|uri}}{{#description?}}&description={{description|uri}}{{/description?}}"
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or in the config file",
+        "pt": "Ou no arquivo de configuração"
+      },
+      "format": "yaml",
+      "template": "extensions:\n  {{name|slug}}:\n    name: {{displayName|yaml}}\n    enabled: true\n    timeout: 300\n{{#isRemote}}    type: streamable_http\n    uri: {{url|yaml}}\n{{#hasHeaders}}    headers:\n{{#headerList}}      {{key|yaml}}: {{value|yaml}}\n{{/headerList}}{{/hasHeaders}}{{/isRemote}}{{^isRemote}}    type: stdio\n    cmd: {{command|yaml}}\n    args: {{args|json}}\n{{#hasEnv}}    envs:\n{{#envList}}      {{key|yaml}}: {{value|yaml}}\n{{/envList}}{{/hasEnv}}{{/isRemote}}",
+      "file": {
+        "macos": "~/.config/goose/config.yaml",
+        "windows": "%APPDATA%\\Block\\goose\\config\\config.yaml",
+        "linux": "~/.config/goose/config.yaml"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://goose-docs.ai/docs/getting-started/using-extensions/",
+      "checked": "2026-11-08",
+      "title": "Using extensions"
+    },
+    {
+      "url": "https://goose-docs.ai/deeplink-generator/",
+      "checked": "2026-11-08",
+      "title": "Goose deeplink generator"
+    },
+    {
+      "url": "https://github.com/aaif-goose/goose/blob/main/documentation/docs/guides/config-files.md",
+      "checked": "2026-11-08",
+      "title": "Config files"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high"
+}

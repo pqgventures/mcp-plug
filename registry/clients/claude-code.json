@@ -1,0 +1,113 @@
+{
+  "$schema": "../schema.json",
+  "id": "claude-code",
+  "name": "Claude Code",
+  "vendor": "Anthropic",
+  "category": "cli",
+  "color": "#c96442",
+  "homepage": "https://code.claude.com",
+  "docs": "https://code.claude.com/docs/en/mcp",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": true,
+    "cimd": true,
+    "pkce": true,
+    "headers": true,
+    "note": {
+      "en": "OAuth with DCR or CIMD, discovered automatically; `--client-id` for servers without registration. Sign in with `/mcp`.",
+      "pt": "OAuth com DCR ou CIMD, descoberto sozinho; `--client-id` para servidores sem registro. O login é pelo `/mcp`."
+    }
+  },
+  "plans": {
+    "en": "Any Claude Code user (Pro, Max, Team, Enterprise or API key). Admins can allow or block servers with managed settings.",
+    "pt": "Qualquer pessoa que usa o Claude Code (Pro, Max, Team, Enterprise ou chave de API). Admins podem liberar ou bloquear servidores por configuração gerenciada."
+  },
+  "limits": [
+    {
+      "en": "Tool output is capped at 25,000 tokens by default (`MAX_MCP_OUTPUT_TOKENS`).",
+      "pt": "A saída de cada ferramenta tem limite de 25.000 tokens por padrão (`MAX_MCP_OUTPUT_TOKENS`)."
+    },
+    {
+      "en": "Headless runs (`claude -p`, Agent SDK) can't do the OAuth sign-in; sign in once interactively.",
+      "pt": "Execuções sem tela (`claude -p`, Agent SDK) não fazem o login OAuth; entre uma vez no modo interativo."
+    },
+    {
+      "en": "`--scope user` makes the server available in every project; the default `local` scope is only the current folder.",
+      "pt": "`--scope user` deixa o servidor em todos os projetos; o escopo padrão `local` vale só para a pasta atual."
+    }
+  ],
+  "methods": [
+    {
+      "id": "cli-http",
+      "kind": "command",
+      "transport": "http",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "claude mcp add --transport {{transport}}{{#headerLines}} --header {{.|shell}}{{/headerLines}} --scope user {{name|shell}} {{url|shell}}",
+      "note": {
+        "en": "{{#oauth}}Then type `/mcp` in Claude Code, pick **{{name}}** and sign in.{{/oauth}}",
+        "pt": "{{#oauth}}Depois digite `/mcp` no Claude Code, escolha **{{name}}** e entre na sua conta.{{/oauth}}"
+      }
+    },
+    {
+      "id": "cli-stdio",
+      "kind": "command",
+      "transport": "stdio",
+      "primary": true,
+      "label": {
+        "en": "Run in your terminal",
+        "pt": "Rode no terminal"
+      },
+      "template": "claude mcp add{{#envPairs}} --env {{.|shell}}{{/envPairs}} --scope user {{name|shell}} -- {{command|shell}}{{#args?}} {{args|shell}}{{/args?}}"
+    },
+    {
+      "id": "project-file",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "Or share it with your team in the repo",
+        "pt": "Ou compartilhe com o time no repositório"
+      },
+      "vars": {
+        "ccType": "{{#isRemote}}{{transport}}{{/isRemote}}{{^isRemote}}stdio{{/isRemote}}",
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": {
+              "type": "{{ccType}}",
+              "...": "{{entry}}"
+            }
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "any": ".mcp.json"
+      },
+      "format": "json"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://code.claude.com/docs/en/mcp",
+      "checked": "2026-11-08",
+      "title": "Connect Claude Code to tools via MCP",
+      "quote": "Claude Code also supports servers that use a Client ID Metadata Document (CIMD) instead of Dynamic Client Registration"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/plugin-marketplaces",
+      "checked": "2026-11-08",
+      "title": "Plugin marketplaces"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "high",
+  "notes": "Plugins: /plugin marketplace add owner/repo, /plugin install name@marketplace (servers in .mcp.json of the plugin). SSE deprecated; --transport http falls back to SSE."
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "../schema.json",
+  "id": "jetbrains",
+  "name": "JetBrains AI",
+  "vendor": "JetBrains",
+  "category": "ide",
+  "color": "#ff318c",
+  "homepage": "https://www.jetbrains.com/ai/",
+  "docs": "https://www.jetbrains.com/help/ai-assistant/mcp.html",
+  "transports": {
+    "stdio": true,
+    "http": true,
+    "sse": true
+  },
+  "auth": {
+    "oauth": true,
+    "dcr": null,
+    "cimd": null,
+    "pkce": null,
+    "headers": true
+  },
+  "plans": {
+    "en": "JetBrains AI access in a JetBrains IDE (AI Assistant or Junie).",
+    "pt": "Acesso ao JetBrains AI numa IDE da JetBrains (AI Assistant ou Junie)."
+  },
+  "limits": [
+    {
+      "en": "AI Assistant and Junie keep separate server lists.",
+      "pt": "AI Assistant e Junie têm listas de servidores separadas."
+    },
+    {
+      "en": "Junie waits 60 s per request by default.",
+      "pt": "O Junie espera 60 s por requisição por padrão."
+    }
+  ],
+  "methods": [
+    {
+      "id": "steps",
+      "kind": "steps",
+      "transport": "both",
+      "primary": true,
+      "label": {
+        "en": "AI Assistant",
+        "pt": "AI Assistant"
+      },
+      "steps": [
+        {
+          "en": "Open **Settings → Tools → AI Assistant → Model Context Protocol (MCP)** and click **Add**.",
+          "pt": "Abra **Settings → Tools → AI Assistant → Model Context Protocol (MCP)** e clique em **Add**."
+        },
+        {
+          "en": "Paste the JSON below, choose global or project, click **OK** and **Apply**.",
+          "pt": "Cole o JSON abaixo, escolha global ou projeto, clique em **OK** e **Apply**."
+        }
+      ]
+    },
+    {
+      "id": "config",
+      "kind": "config",
+      "transport": "both",
+      "label": {
+        "en": "JSON (also Junie's file)",
+        "pt": "JSON (também o arquivo do Junie)"
+      },
+      "format": "json",
+      "vars": {
+        "cfg": {
+          "mcpServers": {
+            "{{name}}": "{{entry}}"
+          }
+        }
+      },
+      "template": "{{cfg|pretty}}",
+      "file": {
+        "macos": "~/.junie/mcp/mcp.json",
+        "windows": "%USERPROFILE%\\.junie\\mcp\\mcp.json",
+        "linux": "~/.junie/mcp/mcp.json"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.jetbrains.com/help/ai-assistant/mcp.html",
+      "checked": "2026-11-08",
+      "title": "AI Assistant: MCP"
+    },
+    {
+      "url": "https://junie.jetbrains.com/docs/junie-cli-mcp-configuration.html",
+      "checked": "2026-11-08",
+      "title": "Junie MCP configuration"
+    }
+  ],
+  "verified": "2026-11-08",
+  "confidence": "medium"
+}
