@@ -1,6 +1,6 @@
 {
   "name": "mcp-plug",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "How to plug an MCP server into every LLM client and personal agent: a data registry, a zero-dependency install widget, README badges and a CLI.",
   "type": "module",
   "license": "MIT",

@@ -2,6 +2,10 @@
 
 Dates are when the registry was checked. Versions follow semver: minor for new clients or install methods, patch for corrections.
 
+## 0.2.1 — 2026-11-10
+
+- Claude (web and desktop): the add-connector link is now `https://claude.ai/new?modal=add-custom-connector&connectorName=…&connectorUrl=…#customize/connectors`, and `openUrl` is `https://claude.ai/new?modal=add-custom-connector#customize/connectors`. Replaces `claude.ai/customize/connectors?modal=…` and `claude.ai/settings/connectors`.
+
 ## 0.2.0 — 2026-11-08
 
 Widget options asked for by the first product to embed it (Fluxo, an Open Finance app for regular people).

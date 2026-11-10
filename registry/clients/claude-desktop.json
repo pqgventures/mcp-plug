@@ -56,7 +56,7 @@
         "en": "Add to Claude",
         "pt": "Adicionar ao Claude"
       },
-      "template": "https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}",
+      "template": "https://claude.ai/new?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}#customize/connectors",
       "note": {
         "en": "Remote servers are Claude connectors: add it once and it shows up in Claude Desktop too.",
         "pt": "Servidores remotos são conectores do Claude: adicione uma vez e ele aparece também no Claude Desktop."

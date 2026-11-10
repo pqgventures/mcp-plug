@@ -7,7 +7,7 @@
   "color": "#d97757",
   "homepage": "https://claude.ai",
   "docs": "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
-  "openUrl": "https://claude.ai/customize/connectors",
+  "openUrl": "https://claude.ai/new?modal=add-custom-connector#customize/connectors",
   "transports": {
     "stdio": false,
     "http": true,
@@ -61,7 +61,7 @@
         "en": "Add to Claude",
         "pt": "Adicionar ao Claude"
       },
-      "template": "https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}",
+      "template": "https://claude.ai/new?modal=add-custom-connector&connectorName={{displayName|uri}}&connectorUrl={{url|uri}}#customize/connectors",
       "note": {
         "en": "Opens Claude's Add custom connector window with the name and URL filled in. Click **Add**, then **Connect**.",
         "pt": "Abre a janela Adicionar conector personalizado do Claude com nome e URL preenchidos. Clique em **Adicionar** e depois em **Conectar**."
