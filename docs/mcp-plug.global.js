@@ -3,7 +3,7 @@
 // mcp-plug core: turns a server description + the client registry into install actions.
 // Runs unchanged in browsers and Node (no dependencies).
 
-const VERSION = '0.2.0';
+const VERSION = '0.2.1';
 
 const SAFE_SHELL = /^[A-Za-z0-9_\/.:=@%+,-]+$/;
 
